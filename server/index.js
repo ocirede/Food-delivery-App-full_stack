@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/mongo-db.js";
 import fs from "fs";
 import userRoutes from "./routes/userRoutes.js";
+import restaurantRoutes from "./routes/restaurantRoutes.js";
 
 const ProfImageUploads = "./uploads/profileImage";
 if (!fs.existsSync(ProfImageUploads)) {
@@ -22,6 +23,7 @@ connectDB();
 
 app.use("/uploads", express.static("uploads"));
 app.use("/users", userRoutes);
+app.use("/restaurants", restaurantRoutes);
 
 app.listen(port, () => {
   console.log(`The server is running in port ${port}`);

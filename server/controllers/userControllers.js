@@ -1,4 +1,5 @@
 import User from "../models/userSchema.js";
+import Restaurant from "../models/restaurantSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import fs from "fs";
@@ -158,9 +159,9 @@ export const addToFavorites = async (req, res) => {
       });
     }
 
-    const Restaurant = await Restaurant.findById(restaurantId);
+    const restaurant = await Restaurant.findById(restaurantId);
 
-    if (!Restaurant) {
+    if (!restaurant) {
       return res.status(404).send({
         success: false,
         error: "Restaurant not found.",
