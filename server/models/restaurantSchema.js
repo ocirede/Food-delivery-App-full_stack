@@ -4,6 +4,7 @@ const restaurantSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String },
+    averageRating: { type: Number },
     address: {
       street: String,
       city: String,

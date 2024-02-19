@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getAllRatings,
+  getRatingsForRestaurant,
   handleAddNewRating,
   updateRating,
 } from "../controllers/ratingControllers.js";
@@ -14,6 +15,8 @@ ratingRoutes.get("/healthcheck", (req, res) => {
 ratingRoutes.post("/addnew", handleAddNewRating);
 
 ratingRoutes.get("/getall", getAllRatings);
+
+ratingRoutes.get("/getforrestaurant/:restaurantId", getRatingsForRestaurant);
 
 ratingRoutes.put("/update/:ratingId", updateRating);
 
