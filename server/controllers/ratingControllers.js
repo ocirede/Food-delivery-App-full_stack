@@ -99,7 +99,7 @@ export const getRatingsForRestaurant = async (req, res) => {
     res.send({ success: true, ratings });
   } catch (error) {
     console.error(
-      "Error finding the ratings for this restaurant",
+      "Error finding the ratings for the restaurant",
       error.message
     );
     res.status(500).json({ success: false, error: error.message });
