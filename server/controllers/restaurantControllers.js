@@ -48,3 +48,32 @@ export const getAllRestaurants = async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 };
+
+//Update a user
+export const updateRestaurant = async (req, res) => {
+  const { restaurantId } = req.params;
+
+  try {
+    const updatedRestaurant = await Restaurant.findByIdAndUpdate(
+      restaurantId,
+      { $set: req.body },
+      { new: true }
+    );
+
+    await updatedRestaurant.populate("ratings");
+
+    if (!updatedRestaurant) {
+      return res.send({ success: false, message: "Restaurant not found" });
+    }
+
+    console.log("Restaurant updated successfully:", updatedUser);
+    res.send({
+      success: true,
+      user: updatedUser,
+      message: "Restaurant updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating the restaurant", error.message);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
