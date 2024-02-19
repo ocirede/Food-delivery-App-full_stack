@@ -39,6 +39,9 @@ export const handleAddManyRestaurants = async (req, res) => {
 export const getAllRestaurants = async (req, res) => {
   try {
     const restaurants = await Restaurant.find();
+
+    await restaurants.populate("ratings");
+
     res.send({ success: true, restaurants });
   } catch (error) {
     console.log("Error getting all restaurants:", error.message);
