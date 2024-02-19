@@ -39,6 +39,12 @@ export const handleSignIn = async (req, res) => {
     const { password, email } = req.body;
     const user = await User.findOne({ email });
 
+    if (!user)
+      return res.status(400).send({
+        success: false,
+        error: "User not found",
+      });
+
     const isMatched = await bcrypt.compare(password, user.password);
 
     if (!isMatched || !user)
@@ -46,6 +52,8 @@ export const handleSignIn = async (req, res) => {
         success: false,
         error: "Email or password is wrong",
       });
+
+    await user.populate("favourites");
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECTER_KEY, {
       expiresIn: "1d",
@@ -63,6 +71,7 @@ export const loggedUser = async (req, res) => {
     const userId = req.user.userId;
     // const userId = req.params.id;
     const user = await User.findOne({ _id: userId });
+    await user.populate("favourites");
     res.send({ success: true, user });
   } catch (error) {
     console.log("Error logged user:", error.message);
@@ -181,7 +190,7 @@ export const addToFavorites = async (req, res) => {
     }
 
     await user.save();
-    await user.populate("favourites");
+
     res.send({
       success: true,
       user,
