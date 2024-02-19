@@ -1,7 +1,7 @@
 import Restaurant from "../models/restaurantSchema.js";
 
 //Add new restaurant
-export const handleNewReastaurant = async (req, res) => {
+export const handleAddNewReastaurant = async (req, res) => {
   try {
     const { name, description, address } = req.body;
 

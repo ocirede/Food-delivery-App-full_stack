@@ -117,8 +117,10 @@ export const updateUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
+    // If there's a file in the request, update the user's image
     if (req.file) {
       const findUser = await User.findById(userId);
+      // Delete the old image file if we have
       if (findUser.image) {
         const filePath = "uploads/profileImage/" + findUser.image;
         fs.unlink(filePath, (err) => {
@@ -126,7 +128,7 @@ export const updateUser = async (req, res) => {
             console.error("Error deleting file:", err);
             return;
           }
-          console.log("File deleted successfully");
+          console.log("Old file deleted successfully");
         });
       }
       req.body.image = req.file.filename;
@@ -137,6 +139,8 @@ export const updateUser = async (req, res) => {
       { $set: req.body },
       { new: true }
     );
+
+    await updatedUser.populate("favourites");
 
     if (!updatedUser) {
       return res.send({ success: false, message: "User not found" });
