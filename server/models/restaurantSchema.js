@@ -17,6 +17,7 @@ const restaurantSchema = new mongoose.Schema(
         price: Number,
       },
     ],
+    category: { type: String, required: true },
   },
   {
     timestamps: true,

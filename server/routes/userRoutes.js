@@ -31,7 +31,7 @@ userRoutes.post("/signin", handleSignIn);
 userRoutes.get("/loggeduser", auth, loggedUser);
 
 userRoutes.put(
-  "/updateuser/:userId",
+  "/update/:userId",
   //should match the name attribute of the input field in your form where the file is being uploaded
   profileImageUpload.single("profileImage"),
   updateUser
