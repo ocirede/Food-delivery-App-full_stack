@@ -12,14 +12,9 @@ const restaurantSchema = new mongoose.Schema(
     },
     menu: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Menu",
-      },
-    ],
-    ratings: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Rating",
+        name: String,
+        description: String,
+        price: Number,
       },
     ],
   },

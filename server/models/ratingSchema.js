@@ -1,13 +1,15 @@
-// Rating schema
 import mongoose from "mongoose";
 
 const ratingSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
   },
-  rating: { type: Number, required: true },
+  restaurant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Restaurant",
+  },
+  ratingNumber: { type: Number, required: true },
   comment: { type: String },
 });
 

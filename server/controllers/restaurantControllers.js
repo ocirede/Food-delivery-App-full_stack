@@ -40,8 +40,6 @@ export const getAllRestaurants = async (req, res) => {
   try {
     const restaurants = await Restaurant.find();
 
-    await restaurants.populate("ratings");
-
     res.send({ success: true, restaurants });
   } catch (error) {
     console.log("Error getting all restaurants:", error.message);
@@ -49,9 +47,10 @@ export const getAllRestaurants = async (req, res) => {
   }
 };
 
-//Update a user
+//Update a restaurant
 export const updateRestaurant = async (req, res) => {
   const { restaurantId } = req.params;
+  //updateUser(user._id, { address: updatedData }); front end
 
   try {
     const updatedRestaurant = await Restaurant.findByIdAndUpdate(
@@ -60,16 +59,14 @@ export const updateRestaurant = async (req, res) => {
       { new: true }
     );
 
-    await updatedRestaurant.populate("ratings");
-
     if (!updatedRestaurant) {
       return res.send({ success: false, message: "Restaurant not found" });
     }
 
-    console.log("Restaurant updated successfully:", updatedUser);
+    console.log("Restaurant updated successfully:", updatedRestaurant);
     res.send({
       success: true,
-      user: updatedUser,
+      restaurant: updatedRestaurant,
       message: "Restaurant updated successfully",
     });
   } catch (error) {
