@@ -10,7 +10,7 @@ export const useAuthContext = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState(null);
-  const [ card, setCard] = useState([])
+  const [card, setCard] = useState([]);
   const navigate = useNavigate();
 
   const firstnameUppercase = user?.address?.firstname
@@ -78,21 +78,18 @@ const AuthProvider = ({ children }) => {
     }
   };
 
- 
-const handlePaymentSubmit = (e) => {
-e.preventDefault();
-const card = {
-  number: e.target.cardnumber.value,
-  expiry: e.target.expiry.value,
-  ccv: e.target.ccv.value,
-  cardholder: e.target.cardholder.value
-};
-e.target.reset()
-setCard(card);
-console.log("====> card",card)
-}
-  
- 
+  const handlePaymentSubmit = (e) => {
+    e.preventDefault();
+    const card = {
+      number: e.target.cardnumber.value,
+      expiry: e.target.expiry.value,
+      ccv: e.target.ccv.value,
+      cardholder: e.target.cardholder.value,
+    };
+    e.target.reset();
+    setCard(card);
+    console.log("====> card", card);
+  };
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
@@ -116,7 +113,6 @@ console.log("====> card",card)
     localStorage.removeItem("token");
   };
 
-
   return (
     <AuthContext.Provider
       value={{
@@ -129,7 +125,7 @@ console.log("====> card",card)
         handeLogout,
         handleUpdateProfile,
         handlePaymentSubmit,
-        card
+        card,
       }}
     >
       {children}

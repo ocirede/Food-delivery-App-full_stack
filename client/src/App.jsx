@@ -11,12 +11,14 @@ import PersonalInfo from "./pages/PersonalInfo";
 import PaymentMethod from "./pages/PaymentMethod";
 import AddressPage from "./pages/AddressPage";
 import OrdersPage from "./pages/OrdersPage";
+import RestaurantProvider from "./context/restaurantContext";
 
 export default function App() {
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
+          <RestaurantProvider>
           <Routes>
             <Route element={<HomeLayout />}>
               <Route path="/" element={<HomaPage />} />
@@ -30,7 +32,8 @@ export default function App() {
 
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
-          </Routes>
+            </Routes>
+          </RestaurantProvider>
         </AuthProvider>
       </BrowserRouter>
     </>

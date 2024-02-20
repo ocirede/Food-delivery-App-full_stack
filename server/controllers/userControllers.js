@@ -138,6 +138,7 @@ export const updateUser = async (req, res) => {
     updatedUser.address = req.body;
     await updatedUser.save();
     await updatedUser.populate("favourites");
+    await updatedUser.save();
 
     if (!updatedUser) {
       return res.send({ success: false, message: "User not found" });
