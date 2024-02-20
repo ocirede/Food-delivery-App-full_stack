@@ -51,11 +51,16 @@ const RestaurantProvider = ({ children }) => {
       );
       if (response.data.success) {
         setRatings(response.data.ratings);
+        console.log("Ratings==>", ratings);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getRatingsForRestaurant("65d3878d34a96e5d1c14c55f");
+  }, []);
 
   //add new order
   const placeNewOrder = async (userId, restaurantId, menuId) => {
@@ -80,7 +85,7 @@ const RestaurantProvider = ({ children }) => {
         baseURL + `/orders/getforuser/${userId}`
       );
       if (response.data.success) {
-        console.log("Orders==>>", response.data.orders);
+        //console.log("Orders==>>", response.data.orders);
         setUserOrders(response.data.orders);
       }
     } catch (error) {
@@ -93,6 +98,7 @@ const RestaurantProvider = ({ children }) => {
       value={{
         restaurants,
         ratings,
+        userOrders,
         fetchRestaurants,
         getRatingsForRestaurant,
         addNewRating,
