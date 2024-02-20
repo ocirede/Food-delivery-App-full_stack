@@ -11,25 +11,27 @@ import ProfilePage from "./pages/ProfilePage";
 import PersonalInfo from "./pages/PersonalInfo";
 import PaymentMethod from "./pages/PaymentMethod";
 import AddressPage from "./pages/AddressPage";
+import RestaurantProvider from "./context/restaurantContext";
 
 export default function App() {
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route element={<HomeLayout />}>
-              <Route path="/" element={<HomaPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/personal-info" element={<PersonalInfo/>}/>
-              <Route path="/payment" element={<PaymentMethod/>}/>
-              <Route path="/address" element={<AddressPage/>}/>
-
-            </Route>
+          <RestaurantProvider>
+            <Routes>
+              <Route element={<HomeLayout />}>
+                <Route path="/" element={<HomaPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/personal-info" element={<PersonalInfo />} />
+                <Route path="/payment" element={<PaymentMethod />} />
+                <Route path="/address" element={<AddressPage />} />
+              </Route>
 
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
-          </Routes>
+            </Routes>
+          </RestaurantProvider>
         </AuthProvider>
       </BrowserRouter>
     </>

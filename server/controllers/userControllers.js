@@ -139,7 +139,36 @@ export const updateUser = async (req, res) => {
       { new: true }
     );
 
+    /* const updatedUser = await User.findById(userId);
+    updatedUser.address = req.body;
     await updatedUser.populate("favourites");
+    await updatedUser.save(); */
+
+    if (!updatedUser) {
+      return res.send({ success: false, message: "User not found" });
+    }
+
+    console.log("User updated successfully:", updatedUser);
+    res.send({
+      success: true,
+      user: updatedUser,
+      message: "Updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating the user", error.message);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+//Update a user
+export const updateUserAddress = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const updatedUser = await User.findById(userId);
+    updatedUser.address = req.body;
+    await updatedUser.populate("favourites");
+    await updatedUser.save();
 
     if (!updatedUser) {
       return res.send({ success: false, message: "User not found" });
