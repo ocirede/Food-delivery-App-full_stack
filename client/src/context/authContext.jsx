@@ -10,25 +10,25 @@ export const useAuthContext = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState(null);
-  const [isClicked, setIsClicked] = useState(false);
-  const [darkerLine, setDarkerLine] = useState(false);
+  const [ card, setCard] = useState([])
   const navigate = useNavigate();
 
-  const firstnameUppercase =
-  user?.address?.firstname?.split(" ")[0].charAt(0).toUpperCase() +
-  user?.address?.firstname?.slice(1);
-  const lastnameUppercase =
-  user?.address?.lastname?.split(" ")[0].charAt(0).toUpperCase() +
-  user?.address?.lastname?.slice(1);
+  const firstnameUppercase = user?.address?.firstname
+    ? user.address.firstname.split(" ")[0].charAt(0).toUpperCase() +
+      user.address.firstname.slice(1)
+    : "";
+  const lastnameUppercase = user?.address?.lastname
+    ? user.address.lastname.split(" ")[0].charAt(0).toUpperCase() +
+      user.address.lastname.slice(1)
+    : "";
 
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
     console.log("token", token);
     if (token) {
-        const response = await axios.get(baseURL + "/users/loggeduser");
-        setUser(response.data.user);
-        console.log("fetchedUser =====>", response.data);
-     
+      const response = await axios.get(baseURL + "/users/loggeduser");
+      setUser(response.data.user);
+      console.log("fetchedUser =====>", response.data);
     } else {
       // navigate("/");
     }
@@ -68,33 +68,69 @@ const AuthProvider = ({ children }) => {
       };
       const response = await axios.post(baseURL + "/users/signin", body);
       localStorage.setItem("token", response.data.token);
-      console.log(response)
+      console.log(response);
       e.target.reset();
-      setUser(response.data)
+      setUser(response.data);
       window.location.replace("/");
-
     } catch (err) {
       console.log(err);
       setErrors(err.response.data.message);
     }
   };
 
-  const handleToggle = () => {
-    setIsClicked(!isClicked)
-    console.log("clicked")
+ 
+const handlePaymentSubmit = (e) => {
+e.preventDefault();
+const card = {
+  number: e.target.cardnumber.value,
+  expiry: e.target.expiry.value,
+  ccv: e.target.ccv.value,
+  cardholder: e.target.cardholder.value
+};
+e.target.reset()
+setCard(card);
+console.log("====> card",card)
+}
+  
+ 
+
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+    const formdata = new FormData(e.target);
+    try {
+      const { data: updatedProfile } = await axios.put(
+        baseURL + `/users/update/${user._id}`,
+        formdata
+      );
+      e.target.reset();
+      if (updatedProfile.success) {
+        setUser(updatedProfile.user);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handeLogout = () => {
     localStorage.removeItem("token");
   };
 
-  const handleHrLineDarker = () =>{
-    setDarkerLine(!darkerLine)
-  }
-
 
   return (
-    <AuthContext.Provider value={{ handleRegister, handleLogin, errors, user, firstnameUppercase, lastnameUppercase, handleToggle, isClicked, handeLogout, handleHrLineDarker, darkerLine }}>
+    <AuthContext.Provider
+      value={{
+        handleRegister,
+        handleLogin,
+        errors,
+        user,
+        firstnameUppercase,
+        lastnameUppercase,
+        handeLogout,
+        handleUpdateProfile,
+        handlePaymentSubmit,
+        card
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
