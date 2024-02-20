@@ -1,8 +1,9 @@
 import React from 'react'
+import SigninComponent from '../components/SigninComponent'
 
 function SignIn() {
   return (
-    <div>SignIn</div>
+    <SigninComponent/>
   )
 }
 

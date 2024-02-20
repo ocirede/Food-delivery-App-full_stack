@@ -7,21 +7,24 @@ import HomaPage from "./pages/HomaPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import AuthProvider from "./context/authContext";
+import ProfilePage from "./pages/ProfilePage";
+import PersonalInfo from "./pages/PersonalInfo";
 
 export default function App() {
   return (
     <>
       <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route element={<HomeLayout />}>
-            <Route path="/" element={<HomaPage />} />
-          </Route>
+        <AuthProvider>
+          <Routes>
+            <Route element={<HomeLayout />}>
+              <Route path="/" element={<HomaPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/personal-info" element={<PersonalInfo/>}/>
+            </Route>
 
-          <Route element={<MainLayout />}></Route>
-         <Route path="/signup" element={<SignUp/>}/> 
-          <Route path="/signin" element={<SignIn/>}/>
-        </Routes>
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
+          </Routes>
         </AuthProvider>
       </BrowserRouter>
     </>
