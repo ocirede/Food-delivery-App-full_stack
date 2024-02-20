@@ -2,7 +2,7 @@ import Rating from "../models/ratingSchema.js";
 import Restaurant from "../models/restaurantSchema.js";
 import User from "../models/userSchema.js";
 
-//Add new rating
+//Add new rating and update the restaurant rating
 export const handleAddNewRating = async (req, res) => {
   try {
     const { userId, restaurantId, ratingNumber, comment } = req.body;
@@ -36,6 +36,21 @@ export const handleAddNewRating = async (req, res) => {
     await newRating.populate("restaurant");
 
     await newRating.save();
+
+    // Calculate the updated average rating for the restaurant
+    const ratings = await Rating.find({ restaurant: restaurantId });
+    const totalRating = ratings.reduce(
+      (acc, curr) => acc + curr.ratingNumber,
+      0
+    );
+    const averageRating = totalRating / ratings.length;
+
+    // Update the averageRating field in the restaurant document
+    await Restaurant.findByIdAndUpdate(
+      restaurantId,
+      { averageRating },
+      { new: true }
+    );
 
     res.send({ success: true, newRating });
     console.log("New rating created successfully:", newRating);

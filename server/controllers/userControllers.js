@@ -185,6 +185,7 @@ console.log(req.body)
   }
 };
 
+//add to favourites
 export const addToFavorites = async (req, res) => {
   const { userId } = req.body;
   const { restaurantId } = req.params;
