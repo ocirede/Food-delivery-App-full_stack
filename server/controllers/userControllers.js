@@ -114,7 +114,6 @@ export const deleteUser = async (req, res) => {
 //Update a user
 export const updateUser = async (req, res) => {
   const { userId } = req.params;
-  console.log("======>", req.body);
 
   try {
     // If there's a file in the request, update the user's image
@@ -134,9 +133,39 @@ export const updateUser = async (req, res) => {
       req.body.image = req.file.filename;
     }
 
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: req.body },
+      { new: true }
+    );
+
+    /* const updatedUser = await User.findById(userId);
+    updatedUser.address = req.body;
+    await updatedUser.populate("favourites");
+    await updatedUser.save(); */
+
+    if (!updatedUser) {
+      return res.send({ success: false, message: "User not found" });
+    }
+
+    console.log("User updated successfully:", updatedUser);
+    res.send({
+      success: true,
+      user: updatedUser,
+      message: "Updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating the user", error.message);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+export const updateUserAddress = async (req, res) => {
+  const { userId } = req.params;
+console.log(req.body)
+  try {
     const updatedUser = await User.findById(userId);
     updatedUser.address = req.body;
-    await updatedUser.save();
     await updatedUser.populate("favourites");
     await updatedUser.save();
 

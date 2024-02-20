@@ -2,11 +2,11 @@ import React from 'react'
 import { useAuthContext } from '../context/authContext';
 
 function Address() {
-  const {handleUpdateProfile}= useAuthContext()
+  const {handleUpdateAddress}= useAuthContext()
     return (
         <div className=' w-1/2'>
           <h2 className="text-2xl font-semibold mb-4">Update Address</h2>
-          <form onSubmit={handleUpdateProfile}  className="space-y-4">
+          <form onSubmit={handleUpdateAddress}  className="space-y-4">
             <div>
               <label htmlFor="firstName" className="block font-medium">First Name</label>
               <input type="text" id="firstName" name='firstname' className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full" />
@@ -21,7 +21,7 @@ function Address() {
             </div>
             <div>
               <label htmlFor="postalcode" className="block font-medium">Postal Code</label>
-              <input type="tel" id="postalcode" name='postalCode' className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full" />
+              <input type="tel" id="postalcode" name='postalcode' className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full" />
             </div>
             <div>
               <label htmlFor="city" className="block font-medium">City</label>

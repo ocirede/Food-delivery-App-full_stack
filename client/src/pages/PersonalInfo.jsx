@@ -5,14 +5,14 @@ import { FilePenLine, Send } from "lucide-react";
 import { baseURL } from "../config/api";
 
 function PersonalInfo() {
-  const { user, firstnameUppercase, lastnameUppercase, handleUpdateProfile } =
+  const { user, firstnameUppercase, lastnameUppercase, handleUpdateImage } =
     useAuthContext();
   return (
     <div>
       <Profile />
       <div className="ml-96 mr-96 mt-20">
         <form
-          onSubmit={handleUpdateProfile}
+          onSubmit={handleUpdateImage}
           className=" flex items-center gap-16"
         >
           {" "}
