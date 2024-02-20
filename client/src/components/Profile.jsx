@@ -12,7 +12,7 @@ function Profile() {
       <span className=" text-xl"> <Link  to="/personal-info">Personal info</Link></span>
       <span className=" text-xl"> <Link  to="/payment">Payment method</Link></span>
       <span className=" text-xl"> <Link to="/address">Address</Link></span>
-      <span className=" text-xl"> <Link>Order history</Link></span>
+      <span className=" text-xl"> <Link to="/orders">Order history</Link></span>
     </div>
    
   </div>  )

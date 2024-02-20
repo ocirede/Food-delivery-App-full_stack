@@ -114,6 +114,7 @@ export const deleteUser = async (req, res) => {
 //Update a user
 export const updateUser = async (req, res) => {
   const { userId } = req.params;
+  console.log("======>", req.body);
 
   try {
     // If there's a file in the request, update the user's image
@@ -133,12 +134,9 @@ export const updateUser = async (req, res) => {
       req.body.image = req.file.filename;
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { $set: req.body },
-      { new: true }
-    );
-
+    const updatedUser = await User.findById(userId);
+    updatedUser.address = req.body;
+    await updatedUser.save();
     await updatedUser.populate("favourites");
 
     if (!updatedUser) {

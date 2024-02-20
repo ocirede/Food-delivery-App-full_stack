@@ -97,15 +97,16 @@ console.log("====> card",card)
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     const formdata = new FormData(e.target);
+    console.log(formdata)
     try {
       const { data: updatedProfile } = await axios.put(
-        baseURL + `/users/update/${user._id}`,
-        formdata
+        baseURL + `/users/update/${user._id}`,  formdata
       );
       e.target.reset();
       if (updatedProfile.success) {
         setUser(updatedProfile.user);
       }
+      console.log(updatedProfile)
     } catch (err) {
       console.log(err);
     }

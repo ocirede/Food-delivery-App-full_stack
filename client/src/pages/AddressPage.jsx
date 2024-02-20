@@ -1,18 +1,16 @@
-import React from 'react'
-import Profile from '../components/Profile'
+import React from "react";
+import Profile from "../components/Profile";
+import Address from "../components/Address";
 
-function Address() {
+function AddressPage() {
   return (
     <div>
-      <Profile/>
+      <Profile />
       <div className=" ml-96 mr-96 mt-20 ">
-
-
-
-            
-</div>
+        <Address />
+      </div>
     </div>
-  )
+  );
 }
 
-export default Address
+export default AddressPage;

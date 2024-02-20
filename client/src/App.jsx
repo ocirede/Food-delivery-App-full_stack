@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeLayout from "./layout/HomeLayout";
-import MainLayout from "./layout/MainLayout";
 import HomaPage from "./pages/HomaPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -11,6 +10,7 @@ import ProfilePage from "./pages/ProfilePage";
 import PersonalInfo from "./pages/PersonalInfo";
 import PaymentMethod from "./pages/PaymentMethod";
 import AddressPage from "./pages/AddressPage";
+import OrdersPage from "./pages/OrdersPage";
 
 export default function App() {
   return (
@@ -24,6 +24,7 @@ export default function App() {
               <Route path="/personal-info" element={<PersonalInfo/>}/>
               <Route path="/payment" element={<PaymentMethod/>}/>
               <Route path="/address" element={<AddressPage/>}/>
+              <Route path="/orders" element={<OrdersPage/>}/>
 
             </Route>
 
