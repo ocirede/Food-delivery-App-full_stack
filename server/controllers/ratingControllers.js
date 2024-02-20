@@ -31,9 +31,11 @@ export const handleAddNewRating = async (req, res) => {
       ratingNumber,
       comment,
     });
-    await newRating.save();
 
-    await newRating.populate("user").populate("restaurant");
+    await newRating.populate("user");
+    await newRating.populate("restaurant");
+
+    await newRating.save();
 
     res.send({ success: true, newRating });
     console.log("New rating created successfully:", newRating);
@@ -84,12 +86,13 @@ export const updateRating = async (req, res) => {
   }
 };
 
+//get ratings for the restaurant
 export const getRatingsForRestaurant = async (req, res) => {
   const { restaurantId } = req.params;
   try {
-    const ratings = await Rating.find({ restaurant: restaurantId }).populate(
-      "user"
-    );
+    const ratings = await Rating.find({ restaurant: restaurantId })
+      .populate("user")
+      .populate("restaurant");
     if (!ratings) {
       return res.send({
         success: false,
@@ -102,6 +105,6 @@ export const getRatingsForRestaurant = async (req, res) => {
       "Error finding the ratings for the restaurant",
       error.message
     );
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).send({ success: false, error: error.message });
   }
 };

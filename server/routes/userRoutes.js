@@ -10,6 +10,7 @@ import {
   handleSignIn,
   loggedUser,
   updateUser,
+  updateUserAddress,
 } from "../controllers/userControllers.js";
 
 const userRoutes = express.Router();
@@ -36,6 +37,8 @@ userRoutes.put(
   profileImageUpload.single("profileImage"),
   updateUser
 );
+
+userRoutes.put("/updateaddress/:userId", updateUserAddress);
 
 userRoutes.put("/favourite/:restaurantId", addToFavorites);
 userRoutes.delete("/delete/:userId", auth, deleteUser);
