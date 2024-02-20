@@ -10,7 +10,6 @@ export const handleRegister = async (req, res) => {
     const saltRounds = 10;
 
     const { username, email, password, confirmpassword } = req.body;
-
     if (password !== confirmpassword)
       return res.status(400).send({
         success: false,
