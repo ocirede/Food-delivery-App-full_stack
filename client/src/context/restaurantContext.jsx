@@ -58,10 +58,6 @@ const RestaurantProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    getRatingsForRestaurant("65d3878d34a96e5d1c14c55f");
-  }, []);
-
   //add new order
   const placeNewOrder = async (userId, restaurantId, menuId) => {
     try {
