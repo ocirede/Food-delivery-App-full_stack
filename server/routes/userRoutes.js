@@ -21,7 +21,7 @@ userRoutes.get("/healthcheck", (req, res) => {
 userRoutes.post(
   "/register",
   [
-    // Sanitization middleware
+    //  Sanitization middleware
     body("username").trim().escape(),
     body("email").trim().escape(),
   ],
