@@ -35,10 +35,18 @@ export const handleAddManyRestaurants = async (req, res) => {
   }
 };
 
-//logged user
+//get all restaurants
 export const getAllRestaurants = async (req, res) => {
+  const { category } = req.query;
+
   try {
-    const restaurants = await Restaurant.find();
+    let filter = {};
+
+    if (category) {
+      filter.category = { $regex: category, $options: "i" };
+    }
+
+    const restaurants = await Restaurant.find(filter);
 
     res.send({ success: true, restaurants });
   } catch (error) {
