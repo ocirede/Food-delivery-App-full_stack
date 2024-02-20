@@ -39,7 +39,7 @@ export const handleAddManyRestaurants = async (req, res) => {
 //const response = await axios.get(import.meta.env.VITE_BASE_URL +`/restaurants/getall?category=${category}`
 export const getAllRestaurants = async (req, res) => {
   const { category } = req.query;
-  console.log(req.query);
+
   try {
     let filter = {};
 
