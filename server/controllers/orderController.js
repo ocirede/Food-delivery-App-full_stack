@@ -5,7 +5,7 @@ import User from "../models/userSchema.js";
 //Add new order
 export const handleAddNewOrder = async (req, res) => {
   try {
-    const { userId, restaurantId, menuId } = req.body;
+    const { userId, restaurantId, menuIds } = req.body;
 
     const user = await User.findById(userId);
 
@@ -25,21 +25,29 @@ export const handleAddNewOrder = async (req, res) => {
       });
     }
 
-    // Find the selected menu item in the restaurant's menu
-    const menuItem = restaurant.menu.find(
-      (item) => item._id.toString() === menuId
-    );
-    if (!menuItem) {
-      return res.status(404).send({
-        success: false,
-        error: "Menu item not found.",
+    const orderedMenuItems = [];
+
+    for (const menuItem of menuIds) {
+      const foundMenuItem = restaurant.menu.find(
+        (item) => item._id.toString() === menuItem
+      );
+      //console.log("foundMenuItem==>", foundMenuItem);
+      if (!foundMenuItem) {
+        throw new Error(
+          `Menu item with ID ${menuItem} not found in the restaurant's menu.`
+        );
+      }
+      orderedMenuItems.push({
+        name: foundMenuItem.name,
+        description: foundMenuItem.description,
+        price: foundMenuItem.price,
       });
     }
-
+    //console.log("orderedMenuItems==>", orderedMenuItems);
     const newOrder = new Order({
       user: userId,
       restaurant: restaurantId,
-      menu: menuItem,
+      menu: orderedMenuItems,
     });
 
     await newOrder.populate("user");
@@ -50,7 +58,7 @@ export const handleAddNewOrder = async (req, res) => {
     res.send({ success: true, newOrder });
     console.log("New Order placed successfully:", newOrder);
   } catch (error) {
-    console.error("Error placing the Order");
+    console.error("Error placing the Order:", error);
     res.status(500).send({ success: false, error: error.message });
   }
 };
