@@ -12,6 +12,7 @@ import PersonalInfo from "./pages/PersonalInfo";
 import PaymentMethod from "./pages/PaymentMethod";
 import AddressPage from "./pages/AddressPage";
 import RestaurantProvider from "./context/restaurantContext";
+import RatingPage from "./pages/RatingPage";
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
 
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
+              <Route path="/rating" element={<RatingPage />} />
             </Routes>
           </RestaurantProvider>
         </AuthProvider>

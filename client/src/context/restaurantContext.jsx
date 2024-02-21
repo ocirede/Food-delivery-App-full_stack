@@ -7,7 +7,7 @@ export const RestaurantContext = createContext();
 
 const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState(null);
-  const [ratings, setRatings] = useState(null);
+  const [ratings, setRatings] = useState([]);
   const [userOrders, setUserOrders] = useState(null);
 
   const navigate = useNavigate();
@@ -36,7 +36,13 @@ const RestaurantProvider = ({ children }) => {
         comment,
       });
       if (response.data.success) {
-        setRatings([...ratings, response.data.newRating]);
+        setRatings(
+          ratings
+            ? [...ratings, response.data.newRating]
+            : [response.data.newRating]
+        );
+
+        console.log("ratings for this restaurant====>", ratings);
       }
     } catch (error) {
       console.log(error);
