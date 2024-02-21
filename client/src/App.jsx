@@ -31,11 +31,11 @@ export default function App() {
               <Route path="/address" element={<AddressPage/>}/>
               <Route path="/orders" element={<OrdersPage/>}/>
               <Route path="/card" element={<AddedCard/>}/>
+              <Route path="/rating" element={<RatingPage />} />
             </Route>
 
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
-              <Route path="/rating" element={<RatingPage />} />
             </Routes>
           </RestaurantProvider>
         </AuthProvider>

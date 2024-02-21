@@ -42,9 +42,11 @@ function OrdersPage() {
     }
   }, []);
 
+
   const handleAddReview = (restaurantId) => {
     navigate(`/rating?restaurantId=${restaurantId}`);
   };
+
 
   return (
     <div className="bg-white p-8 rounded-md w-full">

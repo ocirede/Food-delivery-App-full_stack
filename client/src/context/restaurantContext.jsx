@@ -13,6 +13,7 @@ const RestaurantProvider = ({ children }) => {
   const navigate = useNavigate();
 
   //fetch the restaurants by category
+  
   const fetchRestaurants = async (category = "") => {
     try {
       const response = await axios.get(
@@ -25,6 +26,10 @@ const RestaurantProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, [])
 
   //add new rating
   const addNewRating = async (userId, restaurantId, ratingNumber, comment) => {
