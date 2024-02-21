@@ -8,7 +8,7 @@ const RatingPage = () => {
   const { addNewRating } = useContext(RestaurantContext);
   const { user } = useAuthContext();
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState("Give us your opinion here!");
 
   // we will use query get the restaurantId
   //The path will look like this: navigate(`/rating?restaurantId=${restaurant._id}`);
