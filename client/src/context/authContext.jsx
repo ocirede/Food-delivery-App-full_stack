@@ -153,6 +153,7 @@ const AuthProvider = ({ children }) => {
       firstname: e.target.firstname.value,
       lastname: e.target.lastname.value,
       street: e.target.street.value,
+      city: e.target.city.value,
       postalCode: e.target.postalcode.value,
       country: e.target.country.value,
       phone: e.target.phone.value,

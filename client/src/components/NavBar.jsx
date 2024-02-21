@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Search, LogOut } from "lucide-react";
 import DropMenu from "./DropMenu";
 import Home from "./Home";
+import { useAuthContext } from "../context/authContext";
+import { Link } from "react-router-dom";
+import { ShoppingBag } from "lucide-react";
+import { RestaurantContext } from "../context/restaurantContext";
+
 function NavBar() {
+  const { user } = useAuthContext();
+  const { menu } = useContext(RestaurantContext);
+
   return (
     <>
       <nav className=" w-full h-28 flex items-center">
-        <ul className=" w-full flex items-center justify-between gap-10 ">
+        <ul className=" w-full flex items-center justify-around gap-10 ">
           <Home />
-          
-          <DropMenu />
+          <div className=" flex items-center gap-6">
+            {(menu.length === 0 ? <h2 className=" text-xl">I am empty and I am hungry!!</h2> : null)}
+            <ShoppingBag className=" w-20 h-20" />({menu.length})
+          </div>
+
+          {user ? (
+            <DropMenu />
+          ) : (
+            <div className=" flex gap-6 mr-40">
+              <Link to="/signup">Sign-Up</Link>
+              <Link to="/signin">Sign-In</Link>
+            </div>
+          )}
         </ul>
       </nav>
       <hr className=" border-zinc-950" />

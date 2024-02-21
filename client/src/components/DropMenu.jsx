@@ -10,7 +10,6 @@ function DropMenu() {
     handeLogout,
   } = useAuthContext();
   const [isClicked, setIsClicked] = useState(false);
-
   const handleToggle = () => {
     setIsClicked(!isClicked);
   };
@@ -20,9 +19,9 @@ function DropMenu() {
       <div className="rounded-xl p-1 flex items-center gap-1 relative shadow-md hover:shadow-lg transition duration-300 ease-in-out">
         <CircleUserRound className="w-8 h-8" />
         Welcome{" "}
-        {user && (
+
           <span className="text-gray-800 flex items-center">
-            {user.address ? (
+            {user?.address ? (
               <p>
                 {firstnameUppercase} 
               </p>
@@ -68,7 +67,7 @@ function DropMenu() {
               </div>
             )}
           </span>
-        )}
+        
       </div>
     </div>
   );
