@@ -27,6 +27,16 @@ const RestaurantProvider = ({ children }) => {
     }
   };
 
+  //function to filter by category
+
+  const handleRestaurantsCategory = (category) => {
+    fetchRestaurants(category)
+  };
+
+  const handleResetCategoryClick = () => {
+    fetchRestaurants();
+  };
+
   useEffect(() => {
     fetchRestaurants();
   }, [])
@@ -111,6 +121,8 @@ const RestaurantProvider = ({ children }) => {
         addNewRating,
         placeNewOrder,
         userOrderhistory,
+        handleRestaurantsCategory,
+        handleResetCategoryClick
       }}
     >
       {children}

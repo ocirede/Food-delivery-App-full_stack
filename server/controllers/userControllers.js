@@ -166,7 +166,7 @@ console.log(req.body)
   try {
     const updatedUser = await User.findById(userId);
     updatedUser.address = req.body;
-    await updatedUser.populate("favourites");
+    //await updatedUser.populate("favourites");
     await updatedUser.save();
 
     if (!updatedUser) {
