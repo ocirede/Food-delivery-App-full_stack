@@ -11,10 +11,11 @@ function Profile() {
       {" "}
       <span className=" text-xl"> <Link  to="/personal-info">Personal info</Link></span>
       <span className=" text-xl"> <Link  to="/payment">Payment method</Link></span>
+      <span className=" text-xl"> <Link  to="/card">Added cards</Link></span>
       <span className=" text-xl"> <Link to="/address">Address</Link></span>
       <span className=" text-xl"> <Link to="/orders">Order history</Link></span>
     </div>
-   
+   <hr/>
   </div>  )
 }
 

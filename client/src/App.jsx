@@ -12,6 +12,7 @@ import PaymentMethod from "./pages/PaymentMethod";
 import AddressPage from "./pages/AddressPage";
 import OrdersPage from "./pages/OrdersPage";
 import RestaurantProvider from "./context/restaurantContext";
+import AddedCard from "./pages/AddedCard";
 
 export default function App() {
   return (
@@ -27,7 +28,7 @@ export default function App() {
               <Route path="/payment" element={<PaymentMethod/>}/>
               <Route path="/address" element={<AddressPage/>}/>
               <Route path="/orders" element={<OrdersPage/>}/>
-
+              <Route path="/card" element={<AddedCard/>}/>
             </Route>
 
               <Route path="/signup" element={<SignUp />} />

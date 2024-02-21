@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
       user.address.lastname.slice(1)
     : "";
 
+  //fetch user
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
     console.log("token", token);
@@ -29,15 +30,26 @@ const AuthProvider = ({ children }) => {
       const response = await axios.get(baseURL + "/users/loggeduser");
       setUser(response.data.user);
       console.log("fetchedUser =====>", response.data);
-    } else {
-      // navigate("/");
-    }
+    } 
   };
+  
+
+  //fetch card
+  const fetchCard = async  () => {
+    const card = localStorage.getItem("card");
+    if(card){
+      const response = await axios.get(baseURL + `/cards/getcard/${user._id}`);
+      setCard(response.data.card)
+    }
+
+  }
 
   useEffect(() => {
     fetchUser();
+    fetchCard()
   }, []);
 
+  // registration user
   const handleRegister = async (e) => {
     e.preventDefault();
     setErrors(null);
@@ -57,6 +69,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  //login user
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrors(null);
@@ -78,19 +91,23 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const handlePaymentSubmit = (e) => {
+  // add payment method
+  const handlePaymentSubmit = async (e) => {
     e.preventDefault();
     const card = {
-      number: e.target.cardnumber.value,
+      number: e.target.number.value,
       expiry: e.target.expiry.value,
-      ccv: e.target.ccv.value,
+      cvv: e.target.cvv.value,
       cardholder: e.target.cardholder.value,
     };
+
+    const {data: newCard} = await axios.post(baseURL + `/cards/addnew/${user._id}`, card);
     e.target.reset();
-    setCard(card);
-    console.log("====> card", card);
+    localStorage.setItem("card", JSON.stringify(newCard));
+
   };
 
+  // // uodate image
   const handleUpdateImage = async (e) => {
     e.preventDefault();
     const formdata = new FormData(e.target);
@@ -111,6 +128,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // update  address
   const handleUpdateAddress = async (e) => {
     e.preventDefault();
 
@@ -139,6 +157,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // logout
   const handeLogout = () => {
     localStorage.removeItem("token");
   };

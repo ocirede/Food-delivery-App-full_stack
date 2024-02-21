@@ -24,7 +24,7 @@ function DropMenu() {
           <span className="text-gray-800 flex items-center">
             {user.address ? (
               <p>
-                {firstnameUppercase} {lastnameUppercase}
+                {firstnameUppercase} 
               </p>
             ) : (
               <p>{user?.username}</p>

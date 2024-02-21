@@ -11,11 +11,7 @@ function PersonalInfo() {
     <div>
       <Profile />
       <div className="ml-96 mr-96 mt-20">
-        <form
-          onSubmit={handleUpdateImage}
-          className=" flex items-center gap-16"
-        >
-          {" "}
+        <form onSubmit={handleUpdateImage} className="flex items-center gap-16">
           {user?.image ? (
             <img
               src={baseURL + "/uploads/profileImage/" + user?.image}
@@ -24,39 +20,67 @@ function PersonalInfo() {
               style={{ borderRadius: "50%" }}
             />
           ) : (
-            <div className=" w-28 h-28 rounded-full bg-gray-300"></div>
+            <div className="w-28 h-28 rounded-full bg-gray-300"></div>
           )}
           <label>
-            <FilePenLine className=" cursor-pointer" />
+            <FilePenLine className="cursor-pointer" />
             <input className="hidden" name="profileImage" type="file" />
           </label>
           <button type="submit">
             <Send />
           </button>
           {user?.address ? (
-            <div className=" flex flex-col  gap-2">
-              <span className=" text-lg font-bold">
+            <div className="flex flex-col gap-2">
+              <span className="text-lg font-bold">
                 {firstnameUppercase} {lastnameUppercase}
               </span>
-
-              <span className=""> Email: {user?.email} </span>
-              <span className=" "> Phone number: {user?.address?.phone} </span>
+              <span>Email: {user?.email}</span>
+              <span>Phone number: {user?.address?.phone}</span>
             </div>
           ) : (
-            <div className=" flex flex-col  gap-2">
-              <span className=" text-lg font-bold">
+            <div className="flex flex-col gap-2">
+              <span className="text-lg font-bold">
                 {user?.username} please add your personal infos in the address
                 section
               </span>
-
-              <span className=""> Email: {user?.email} </span>
-              <span className=" "> Phone number:</span>
+              <span>Email: {user?.email}</span>
+              <span>Phone number:</span>
             </div>
           )}
         </form>
-        {/* <div className="">
-          {user?.favourites} 
-          </div> */}
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div>
+          {user.favourites.length === 0 ? (
+            <div>
+              <h3 className=" font-bold text-2xl">Favourites:</h3>
+              <h3>
+                You’ll find your favorite restaurants and stores here. You can
+                add favorites by tapping the heart icon.
+              </h3>
+            </div>
+          ) : (
+            <div>
+              <h3 className=" text-4xl font-bold">Favourites:</h3>
+              <ul>
+                {user.favourites.map((favourite, index) => (
+                  <li key={index}>{favourite.name}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

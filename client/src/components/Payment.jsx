@@ -4,7 +4,7 @@ import { useAuthContext } from "../context/authContext";
 
 function Payment() {
   const { handlePaymentSubmit, card } = useAuthContext();
-  console.log(card);
+
   const [isClicked, setIsClicked] = useState(false);
 
   const handleToggle = () => {
@@ -26,14 +26,7 @@ function Payment() {
           <span>Add a card</span>
         </div>
       </div>
-      {card.length > 0 &&
-        card.map((card, index) => (
-          <div key={index} className="p-4 bg-gray-100 rounded-md mb-4">
-            <h2 className="text-xl font-bold">Card Number: {card.number}</h2>
-            <p className="text-gray-600">Expiry Date: {card.expiry}</p>
-            <p className="text-gray-600">Cardholder Name: {card.cardholder}</p>
-          </div>
-        ))};
+
       {isClicked && (
         <div className="p-12">
           <form onSubmit={handlePaymentSubmit} className="w-96">
@@ -49,7 +42,7 @@ function Payment() {
                 id="card-number"
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder="0000 0000 0000 0000"
-                name="cardnumber"
+                name="number"
                 required
               />
             </div>
@@ -78,7 +71,7 @@ function Payment() {
                   CVV
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="cvv"
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   placeholder="123"
@@ -113,6 +106,7 @@ function Payment() {
           </form>
         </div>
       )}
+     
     </div>
   );
 }
