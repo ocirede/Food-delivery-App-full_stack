@@ -9,11 +9,12 @@ const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState(null);
   const [ratings, setRatings] = useState([]);
   const [userOrders, setUserOrders] = useState(null);
+  const [restaurant, setRestaurant] = useState(null);
 
   const navigate = useNavigate();
 
   //fetch the restaurants by category
-  
+
   const fetchRestaurants = async (category = "") => {
     try {
       const response = await axios.get(
@@ -29,7 +30,7 @@ const RestaurantProvider = ({ children }) => {
 
   useEffect(() => {
     fetchRestaurants();
-  }, [])
+  }, []);
 
   //add new rating
   const addNewRating = async (userId, restaurantId, ratingNumber, comment) => {
@@ -100,17 +101,34 @@ const RestaurantProvider = ({ children }) => {
     }
   };
 
+  //find restaurant by id
+  const findRestaurant = async (restaurantId) => {
+    try {
+      const response = await axios.get(
+        baseURL + `/restaurants/find/${restaurantId}`
+      );
+      if (response.data.success) {
+        //console.log("Orders==>>", response.data.orders);
+        setRestaurant(response.data.restaurant);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <RestaurantContext.Provider
       value={{
         restaurants,
         ratings,
         userOrders,
+        restaurant,
         fetchRestaurants,
         getRatingsForRestaurant,
         addNewRating,
         placeNewOrder,
         userOrderhistory,
+        findRestaurant,
       }}
     >
       {children}
