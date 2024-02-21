@@ -7,6 +7,7 @@ const {userId} = req.params;
   const { number, expiry, cvv, cardholder } = req.body;
   try {
     const newCard = new Card({
+      user:userId,
       card: {
         number,
         expiry,
@@ -32,8 +33,8 @@ export const handleGetCard = async (req, res) => {
     const {userId} = req.params;
 
     try {
-        const card = await Card.find({ user: userId }).populate("user");
-        if (card.length === 0) {
+        const cards = await Card.find({ user: userId }).populate("user");
+        if (cards.length === 0) {
             return res.status(404).json({ success: false, message: 'No cards found for the user' });
         }
       
