@@ -84,7 +84,7 @@ export const updateRestaurant = async (req, res) => {
   }
 };
 
-//logged user
+//find restaurant by id
 export const findRestaurant = async (req, res) => {
   try {
     //const restaurantId = req.body;
