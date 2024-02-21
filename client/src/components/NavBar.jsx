@@ -8,14 +8,7 @@ function NavBar() {
       <nav className=" w-full h-28 flex items-center">
         <ul className=" w-full flex items-center justify-between gap-10 ">
           <Home />
-          <div className="flex items-center w-1/6 ">
-            <Search className="mr-2" />
-            <input
-              type="text"
-              placeholder="Search in Berlinvery"
-              className="border border-zinc-950 h-9 rounded-xl px-4"
-            />
-          </div>
+          
           <DropMenu />
         </ul>
       </nav>

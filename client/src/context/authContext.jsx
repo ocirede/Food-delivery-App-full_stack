@@ -2,7 +2,7 @@ import React from "react";
 import axios from "../config/axios.js";
 import { baseURL } from "../config/api.js";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AuthContext = createContext(null);
 export const useAuthContext = () => useContext(AuthContext);
@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState(null);
   const [card, setCard] = useState([]);
+
   const navigate = useNavigate();
 
   const firstnameUppercase = user?.address?.firstname
@@ -23,31 +24,43 @@ const AuthProvider = ({ children }) => {
     : "";
 
   //fetch user
-  const fetchUser = async () => {
-    const token = localStorage.getItem("token");
-    console.log("token", token);
-    if (token) {
-      const response = await axios.get(baseURL + "/users/loggeduser");
-      setUser(response.data.user);
-      console.log("fetchedUser =====>", response.data);
-    } 
-  };
-  
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const response = await axios.get(baseURL + "/users/loggeduser");
+          setUser(response.data.user);
+          console.log("fetchedUser =====>", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   //fetch card
-  const fetchCard = async  () => {
-    const card = localStorage.getItem("card");
-    if(card){
-      const response = await axios.get(baseURL + `/cards/getcard/${user._id}`);
-      setCard(response.data.card)
-    }
-
-  }
-
   useEffect(() => {
-    fetchUser();
-    fetchCard()
-  }, []);
+    const fetchCard = async () => {
+      try {
+        if (user && user._id) {
+          const response = await axios.get(
+            `${baseURL}/cards/getcard/${user._id}`
+          );
+          console.log("card data", response.data);
+          setCard(response.data.card);
+        } else {
+          console.log("User or user._id is undefined");
+        }
+      } catch (error) {
+        console.error("Error fetching card:", error);
+      }
+    };
+
+    fetchCard();
+  }, [user]);
 
   // registration user
   const handleRegister = async (e) => {
@@ -100,11 +113,16 @@ const AuthProvider = ({ children }) => {
       cvv: e.target.cvv.value,
       cardholder: e.target.cardholder.value,
     };
-
-    const {data: newCard} = await axios.post(baseURL + `/cards/addnew/${user._id}`, card);
-    e.target.reset();
-    localStorage.setItem("card", JSON.stringify(newCard));
-
+    try {
+      const { data: newCard } = await axios.post(
+        baseURL + `/cards/addnew/${user._id}`,
+        card
+      );
+      e.target.reset();
+      setCard(newCard.newCard);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // // uodate image
@@ -162,6 +180,25 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
 
+  //add fav
+  const handleFavourites = async (restaurantId, userId) => {
+    const body = {
+      userId,
+    };
+
+    try {
+      const response = await axios.put(
+        baseURL + `/users/favourite/${restaurantId}`,
+        body
+      );
+
+      setUser(response.data.user)
+      console.log("===> add fav", response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -176,6 +213,7 @@ const AuthProvider = ({ children }) => {
         handlePaymentSubmit,
         handleUpdateAddress,
         card,
+        handleFavourites,
       }}
     >
       {children}
