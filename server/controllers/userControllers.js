@@ -160,10 +160,9 @@ export const updateUser = async (req, res) => {
   }
 };
 
-//Update a user
 export const updateUserAddress = async (req, res) => {
   const { userId } = req.params;
-
+console.log(req.body)
   try {
     const updatedUser = await User.findById(userId);
     updatedUser.address = req.body;
