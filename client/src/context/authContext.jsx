@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "../config/axios.js";
-import { baseURL } from "../config/api.js";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,6 +10,8 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState(null);
   const [card, setCard] = useState([]);
+
+  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
 
