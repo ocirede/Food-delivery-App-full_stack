@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  findRestaurant,
   getAllRestaurants,
   handleAddManyRestaurants,
   handleAddNewReastaurant,
@@ -19,5 +20,7 @@ restaurantRoutes.post("/addmany", handleAddManyRestaurants);
 restaurantRoutes.get("/getall", getAllRestaurants);
 
 restaurantRoutes.put("/update/:restaurantId", updateRestaurant);
+
+restaurantRoutes.get("/find/:restaurantId", findRestaurant);
 
 export default restaurantRoutes;

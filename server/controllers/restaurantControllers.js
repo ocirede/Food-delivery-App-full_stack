@@ -83,3 +83,17 @@ export const updateRestaurant = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+//logged user
+export const findRestaurant = async (req, res) => {
+  try {
+    //const restaurantId = req.body;
+    const restaurantId = req.params;
+    const restaurant = await Restaurant.findOne({ restaurantId });
+
+    res.send({ success: true, restaurant });
+  } catch (error) {
+    console.log("Error finsing the restaurant:", error.message);
+    res.status(500).send({ success: false, error: error.message });
+  }
+};

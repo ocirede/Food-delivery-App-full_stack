@@ -137,7 +137,7 @@ export const updateUser = async (req, res) => {
       userId,
       { $set: req.body },
       { new: true }
-    );
+    ).populate("favourites");
 
     /* const updatedUser = await User.findById(userId);
     updatedUser.address = req.body;
@@ -162,7 +162,7 @@ export const updateUser = async (req, res) => {
 
 export const updateUserAddress = async (req, res) => {
   const { userId } = req.params;
-console.log(req.body)
+  console.log(req.body);
   try {
     const updatedUser = await User.findById(userId);
     updatedUser.address = req.body;
