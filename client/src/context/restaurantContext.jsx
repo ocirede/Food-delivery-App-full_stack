@@ -46,7 +46,7 @@ const RestaurantProvider = ({ children }) => {
             ? [...ratings, response.data.newRating]
             : [response.data.newRating]
         );
-
+        navigate("/");
         console.log("ratings for this restaurant====>", ratings);
       }
     } catch (error) {
