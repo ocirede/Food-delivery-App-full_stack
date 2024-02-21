@@ -36,13 +36,6 @@ export const handleAddNewOrder = async (req, res) => {
       });
     }
 
-    if (!menuItem) {
-      return res.status(404).send({
-        success: false,
-        error: "Menu item not found.",
-      });
-    }
-
     const newOrder = new Order({
       user: userId,
       restaurant: restaurantId,
