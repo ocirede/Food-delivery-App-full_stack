@@ -1,7 +1,7 @@
 import Card from "../models/cardSchema.js";
 
 export const handleAddNewCard = async (req, res) => {
-    const {userId} = req.params;
+const {userId} = req.params;
   const { number, expiry, cvv, cardholder } = req.body;
   try {
     const newCard = new Card({
@@ -26,13 +26,13 @@ export const handleAddNewCard = async (req, res) => {
 };
 
 export const handleGetCard = async (req, res) => {
-    const userId = req.params.userId;
+
+    const {userId} = req.params;
 
     try {
-        const card = await Card.find({ user: userId });
-
-        if (!card) {
-            return res.status(404).json({ success: false, message: 'Cards not found' });
+        const card = await Card.find({ user: userId }).populate("user");
+        if (card.length === 0) {
+            return res.status(404).json({ success: false, message: 'No cards found for the user' });
         }
 
         return res.status(200).json({ success: true, card });

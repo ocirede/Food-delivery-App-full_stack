@@ -22,7 +22,7 @@ function OrdersPage() {
     if (user) {
       fetchData();
     }
-  }, [user, userOrderhistory]);
+  }, []);
 
   return (
     <div>

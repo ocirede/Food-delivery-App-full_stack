@@ -3,6 +3,7 @@ import Profile from "../components/Profile";
 import { useAuthContext } from "../context/authContext";
 import { FilePenLine, Send } from "lucide-react";
 import { baseURL } from "../config/api";
+import { Link } from "react-router-dom";
 
 function PersonalInfo() {
   const { user, firstnameUppercase, lastnameUppercase, handleUpdateImage } =
@@ -40,7 +41,7 @@ function PersonalInfo() {
           ) : (
             <div className="flex flex-col gap-2">
               <span className="text-lg font-bold">
-                {user?.username} please add your personal infos in the address
+                {user?.username} please add your personal infos in the <Link className=" bg-blue-500" to="/address">address</Link>
                 section
               </span>
               <span>Email: {user?.email}</span>
@@ -54,28 +55,22 @@ function PersonalInfo() {
         <br />
         <br />
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+       
         <div>
-          {user.favourites.length === 0 ? (
+          {user?.favourites?.length === 0 ? (
             <div>
               <h3 className=" font-bold text-2xl">Favourites:</h3>
-              <h3>
-                You’ll find your favorite restaurants and stores here. You can
+              <h3 className=" text-lg ">
+                You’ll find your favorite restaurants  here. You can
                 add favorites by tapping the heart icon.
               </h3>
             </div>
           ) : (
             <div>
               <h3 className=" text-4xl font-bold">Favourites:</h3>
-              <ul>
-                {user.favourites.map((favourite, index) => (
-                  <li key={index}>{favourite.name}</li>
+              <ul className=" flex flex-col mt-6 gap-4">
+                {user?.favourites?.map((favourite, index) => (
+                  <li className=" text-lg font-bold " key={index}>{favourite.name}</li>
                 ))}
               </ul>
             </div>
