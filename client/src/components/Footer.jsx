@@ -1,5 +1,5 @@
 import React from "react";
-import { Copyright } from 'lucide-react';
+import { Copyright } from "lucide-react";
 
 function Footer() {
   return (
