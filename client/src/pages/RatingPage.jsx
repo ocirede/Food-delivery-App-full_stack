@@ -27,9 +27,9 @@ const RatingPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //addNewRating(user._id, restaurantId, rating, comment);
-    console.log("rating====>>>", rating);
-    console.log("comment===>>", comment);
+    addNewRating(user._id, restaurantId, rating, comment);
+    //console.log("rating====>>>", rating);
+    //console.log("comment===>>", comment);
     setRating(0);
     setComment("Give us your opinion here!");
   };
