@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Profile from "../components/Profile";
 import { useAuthContext } from "../context/authContext";
 
 function AddedCard() {
-  const { card } = useAuthContext();
-  console.log("====>", card);
+  const { card, fetchCard } = useAuthContext();
+  useEffect(() => {
+    fetchCard();
+  }, []);
+
 
   return (
     <div>
