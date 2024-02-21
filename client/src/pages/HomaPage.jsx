@@ -3,17 +3,14 @@ import { RestaurantContext } from "../context/restaurantContext";
 import { Heart } from "lucide-react";
 import { useAuthContext } from "../context/authContext";
 import SubNav from "../components/SubNav";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 function HomaPage() {
-  const { restaurants } = useContext(RestaurantContext);
+  const { restaurants, findRestaurant } = useContext(RestaurantContext);
   const { handleFavourites, user } = useAuthContext();
-  const navigate = useNavigate();
 
-const handleDescription = (restaurantId) => {
-  navigate(`/description?restaurantId${restaurantId}`)
-}
+  const handleDescription = (restaurantId) => {
+    findRestaurant(restaurantId);
+  };
   return (
     <>
       <SubNav />
@@ -30,11 +27,11 @@ const handleDescription = (restaurantId) => {
               <div className="p-4">
                 <div className=" flex justify-between ">
                   <button onClick={() => handleDescription(restaurant._id)}>
-                  <h2 className="text-xl font-semibold mb-2 underline">
-                    {restaurant.name}
-                  </h2>
+                    <h2 className="text-xl font-semibold mb-2 underline">
+                      {restaurant.name}
+                    </h2>
                   </button>
-                 
+
                   <button
                     onClick={() => handleFavourites(restaurant._id, user._id)}
                   >
@@ -54,22 +51,7 @@ const handleDescription = (restaurantId) => {
                   <span className="text-gray-500">
                     Rating: {restaurant.averageRating.toFixed(2)}
                   </span>
-                  {/* <div>
-                  {restaurant.menu.map((item, index) => (
-                    <div key={index}>
-                      <span>{item.name}</span>
-                      
-                    </div>
-                  ))}
-                  </div>
-                   */}
                 </div>
-                {/* <button
-                  onClick={() => handleAddToOrder(restaurant)}
-                  className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Order
-                </button> */}
               </div>
             </div>
           ))}

@@ -9,8 +9,8 @@ function OrdersPage() {
   const { user } = useAuthContext();
   const { userOrders, userOrderhistory } = useContext(RestaurantContext);
   const [loading, setLoading] = useState(true);
-
   const navigate = useNavigate();
+  console.log(userOrders);
 
   function formatDate(createdAt) {
     const date = new Date(createdAt);
@@ -42,11 +42,9 @@ function OrdersPage() {
     }
   }, []);
 
-
   const handleAddReview = (restaurantId) => {
     navigate(`/rating?restaurantId=${restaurantId}`);
   };
-
 
   return (
     <div className="bg-white p-8 rounded-md w-full">
@@ -55,7 +53,7 @@ function OrdersPage() {
           <Profile />
         </div>
       </div>
-      <div className=" ml-96 mr-96 mt-20">
+      <div className=" ml-40  mr-40 mt-20">
         <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
           <table className="min-w-full leading-normal">
             <thead>
@@ -84,23 +82,30 @@ function OrdersPage() {
                 </tr>
               ) : (
                 userOrders?.map((order, index) => (
-                  <tr key={index} className="text-sm">
+                  <tr key={index} className="text-md">
                     <td className="px-5 text-center py-5 border-b border-gray-200">
                       {order.restaurant.name}
                     </td>
                     <td className="px-5 py-5 text-center border-b border-gray-200">
-                      {order.menu.name}
+                      {order.menu.map((menu, index) => (
+                        <div key={index}>
+                          <span>{menu.name}</span>
+                        </div>
+                      ))}
                     </td>
                     <td className="px-5 py-5 text-center border-b border-gray-200">
                       {formatDate(order.createdAt)}
                     </td>
                     <td className="px-5 py-5 text-center border-b border-gray-200">
-                      € {order.menu.price}
+                      {order.menu.reduce((acc, item) => {
+                        const total = (acc += item.price);
+                        return total;
+                      }, 0).toFixed(2)} €
                     </td>
                     <td className="px-5 py-5 text-center border-b border-gray-200">
                       <button
                         onClick={() => handleAddReview(order.restaurant._id)}
-                        className="text-xs text-indigo-600 hover:text-indigo-900"
+                        className="text-md text-indigo-600 hover:text-indigo-900"
                       >
                         Add a review
                       </button>

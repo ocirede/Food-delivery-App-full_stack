@@ -8,7 +8,10 @@ function AddedCard() {
     fetchCard();
   }, []);
 
-
+ const maskCardNumber = (number) => {
+    const maskedNumber = "**** **** **** " + number.slice(-4);
+    return maskedNumber;
+  };
   return (
     <div>
       <Profile />
@@ -18,7 +21,7 @@ function AddedCard() {
             {card.map((card, index) => (
               <div key={index}  className="p-4 bg-gray-100 rounded-md mb-4">
                 <h2  className="text-xl font-bold">
-                  Card Number: {card.card.number}
+                  Card Number: {maskCardNumber(card.card.number)}
                 </h2>
                 <p className="text-gray-600">Expiry Date: {card.card.expiry}</p>
                 <p className="text-gray-600">

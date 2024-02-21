@@ -2,14 +2,18 @@ import axios from "../config/axios.js";
 import { baseURL } from "../config/api.js";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "./authContext.jsx";
 
 export const RestaurantContext = createContext();
 
 const RestaurantProvider = ({ children }) => {
+  const { user } = useAuthContext();
   const [restaurants, setRestaurants] = useState(null);
   const [ratings, setRatings] = useState([]);
   const [userOrders, setUserOrders] = useState(null);
   const [restaurant, setRestaurant] = useState(null);
+  const [menu, setMenu] = useState([]);
+  const [count, setCount] = useState(0);
 
   const navigate = useNavigate();
 
@@ -31,7 +35,7 @@ const RestaurantProvider = ({ children }) => {
   //function to filter by category
 
   const handleRestaurantsCategory = (category) => {
-    fetchRestaurants(category)
+    fetchRestaurants(category);
   };
 
   const handleResetCategoryClick = () => {
@@ -120,12 +124,31 @@ const RestaurantProvider = ({ children }) => {
       if (response.data.success) {
         //console.log("Orders==>>", response.data.orders);
         setRestaurant(response.data.restaurant);
+        navigate("/description");
+        console.log(response.data);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Add new order
+  const AddOrder = async (userId, restaurantId, menuIds) => {
+    try {
+      const body = {
+        userId,
+        restaurantId,
+        menuIds,
+      };
+
+      const newOrder = await axios.post(baseURL + "/orders/addnew", body);
+      console.log(newOrder);
+      setMenu((prevOrders) => [...prevOrders, newOrder.data]);
+      console.log(newOrder.data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <RestaurantContext.Provider
       value={{
@@ -138,11 +161,13 @@ const RestaurantProvider = ({ children }) => {
         addNewRating,
         placeNewOrder,
         userOrderhistory,
-
         handleRestaurantsCategory,
-        handleResetCategoryClick
-
+        handleResetCategoryClick,
         findRestaurant,
+        AddOrder,
+        setUserOrders,
+        setMenu,
+        menu,
       }}
     >
       {children}
