@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
     };
 
     fetchCard();
-  }, [user]);
+  }, []);
 
   // registration user
   const handleRegister = async (e) => {
@@ -192,7 +192,7 @@ const AuthProvider = ({ children }) => {
         body
       );
 
-      setUser(response.data.user)
+      setUser(response.data.user);
       console.log("===> add fav", response.data);
     } catch (err) {
       console.log(err);
