@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { RestaurantContext } from "../context/restaurantContext";
 import { useAuthContext } from "../context/authContext";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const RatingPage = () => {
   const { addNewRating } = useContext(RestaurantContext);
@@ -86,9 +86,9 @@ const RatingPage = () => {
             </div>
           </form>
           <div className="h-20 flex items-center justify-center">
-            <a href="#" className="text-gray-600">
+            <Link className="text-gray-600" to="/">
               Maybe later
-            </a>
+            </Link>
           </div>
         </div>
       </div>
