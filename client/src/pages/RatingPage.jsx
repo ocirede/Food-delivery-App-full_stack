@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useContext } from "react";
 import { RestaurantContext } from "../context/restaurantContext";
 import { useAuthContext } from "../context/authContext";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const RatingPage = () => {
   const { addNewRating } = useContext(RestaurantContext);
   const { user } = useAuthContext();
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState("Give us your opinion here!");
 
   // we will use query get the restaurantId
   //The path will look like this: navigate(`/rating?restaurantId=${restaurant._id}`);
@@ -31,7 +31,7 @@ const RatingPage = () => {
     //console.log("rating====>>>", rating);
     //console.log("comment===>>", comment);
     setRating(0);
-    setComment("");
+    setComment("Give us your opinion here!");
   };
 
   return (
@@ -86,9 +86,9 @@ const RatingPage = () => {
             </div>
           </form>
           <div className="h-20 flex items-center justify-center">
-            <a href="#" className="text-gray-600">
+            <Link className="text-gray-600" to="/">
               Maybe later
-            </a>
+            </Link>
           </div>
         </div>
       </div>
