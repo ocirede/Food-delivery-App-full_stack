@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Profile from "../components/Profile";
 import { useAuthContext } from "../context/authContext";
 import { FilePenLine, Send } from "lucide-react";
@@ -6,8 +6,14 @@ import { baseURL } from "../config/api";
 import { Link } from "react-router-dom";
 
 function PersonalInfo() {
-  const { user, firstnameUppercase, lastnameUppercase, handleUpdateImage } =
-    useAuthContext();
+  const {
+    user,
+    firstnameUppercase,
+    lastnameUppercase,
+    handleUpdateImage,
+    fetchUser,
+  } = useAuthContext();
+
   return (
     <div>
       <Profile />

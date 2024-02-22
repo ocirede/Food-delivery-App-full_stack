@@ -25,25 +25,24 @@ const AuthProvider = ({ children }) => {
     : "";
 
   //fetch user
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (token) {
-          const response = await axios.get(baseURL + "/users/loggeduser");
-          setUser(response.data.user);
-          console.log("fetchedUser =====>", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
 
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const response = await axios.get(baseURL + "/users/loggeduser");
+        setUser(response.data.user);
+        console.log("fetchedUser =====>", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+  useEffect(() => {
     fetchUser();
   }, []);
 
   //fetch card
-
 
   const fetchCard = async () => {
     try {
@@ -60,7 +59,7 @@ const AuthProvider = ({ children }) => {
       console.error("Error fetching card:", error);
     }
   };
-  
+
   // registration user
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -119,7 +118,6 @@ const AuthProvider = ({ children }) => {
       );
       e.target.reset();
       setCard(newCard.newCard);
-      
     } catch (err) {
       console.log(err);
     }
@@ -215,7 +213,8 @@ const AuthProvider = ({ children }) => {
         handleUpdateAddress,
         card,
         handleFavourites,
-        fetchCard
+        fetchCard,
+        fetchUser,
       }}
     >
       {children}
