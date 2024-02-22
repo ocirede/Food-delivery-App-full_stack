@@ -89,10 +89,13 @@ function PersonalInfo() {
           ) : (
             <div className="flex flex-col">
               <h3 className="text-4xl font-bold">Favourites:</h3>
-              <ul className="flex mt-6">
+              <ul className="mt-6">
                 {user?.favourites?.map((favourite, index) => (
-                  <li className="text-lg font-bold mb-2 gap-6" key={index}>
-                    {favourite.name}
+                  <li key={index} className="mr-4 mb-2">
+                    <span className="text-lg font-bold">{favourite.name}</span>
+                    {index !== user.favourites.length - 1 && (
+                      <span className="mx-2 border-b border-gray-400"></span>
+                    )}
                   </li>
                 ))}
               </ul>
