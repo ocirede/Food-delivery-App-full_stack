@@ -64,6 +64,7 @@ export const handleAddNewRating = async (req, res) => {
 export const getAllRatings = async (req, res) => {
   try {
     const ratings = await Rating.find().populate("user").populate("restaurant");
+    console.log(ratings)
     res.send({ success: true, ratings });
   } catch (error) {
     console.log("Error getting all ratings:", error.message);

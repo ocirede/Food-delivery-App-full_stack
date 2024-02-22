@@ -15,7 +15,7 @@ function DropMenu() {
   };
 
   return (
-    <div className="w-1/3 flex justify-center">
+    <div className="w-1/3 flex justify-center z-20">
       <div className="rounded-xl p-1 flex items-center gap-1 relative shadow-md hover:shadow-lg transition duration-300 ease-in-out">
         <CircleUserRound className="w-8 h-8" />
         Welcome{" "}

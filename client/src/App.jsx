@@ -15,7 +15,7 @@ import RestaurantProvider from "./context/restaurantContext";
 import RatingPage from "./pages/RatingPage";
 import AddedCard from "./pages/AddedCard";
 import DescriptionPage from "./pages/DescriptionPage";
-
+import Checkout from "./pages/Checkout";
 
 export default function App() {
   return (
@@ -23,19 +23,19 @@ export default function App() {
       <BrowserRouter>
         <AuthProvider>
           <RestaurantProvider>
-          <Routes>
-            <Route element={<HomeLayout />}>
-              <Route path="/" element={<HomaPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/personal-info" element={<PersonalInfo/>}/>
-              <Route path="/payment" element={<PaymentMethod/>}/>
-              <Route path="/address" element={<AddressPage/>}/>
-              <Route path="/orders" element={<OrdersPage/>}/>
-              <Route path="/card" element={<AddedCard/>}/>
-              <Route path="/rating" element={<RatingPage />} />
-              <Route path="/description" element={<DescriptionPage />} />
-
-            </Route>
+            <Routes>
+              <Route element={<HomeLayout />}>
+                <Route path="/" element={<HomaPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/personal-info" element={<PersonalInfo />} />
+                <Route path="/payment" element={<PaymentMethod />} />
+                <Route path="/address" element={<AddressPage />} />
+                <Route path="/orders" element={<OrdersPage />} />
+                <Route path="/card" element={<AddedCard />} />
+                <Route path="/rating" element={<RatingPage />} />
+                <Route path="/description" element={<DescriptionPage />} />
+                <Route path="/checkout" element={<Checkout/>} />
+              </Route>
 
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />

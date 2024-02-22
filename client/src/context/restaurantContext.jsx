@@ -10,9 +10,9 @@ const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState(null);
   const [ratings, setRatings] = useState([]);
   const [userOrders, setUserOrders] = useState(null);
+  const [placedOrders, setPlacedOrders] = useState(null)
   const [restaurant, setRestaurant] = useState(null);
   const [menu, setMenu] = useState([]);
-  const [count, setCount] = useState(0);
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -84,6 +84,10 @@ const RestaurantProvider = ({ children }) => {
     }
   };
 
+  useEffect(() =>{
+    getRatingsForRestaurant(restaurants?._id)
+  }, []);
+
   //add new order
   const placeNewOrder = async (userId, restaurantId, menuId) => {
     try {
@@ -143,8 +147,12 @@ const RestaurantProvider = ({ children }) => {
 
       const newOrder = await axios.post(baseURL + "/orders/addnew", body);
       console.log(newOrder);
-      setMenu((prevOrders) => [...prevOrders, newOrder.data]);
-      console.log(newOrder.data);
+
+      setMenu([]);
+      setPlacedOrders(newOrder.data)
+      navigate("/checkout")
+      console.log(newOrder.data)
+
     } catch (error) {
       console.log(error);
     }
@@ -168,6 +176,8 @@ const RestaurantProvider = ({ children }) => {
         setUserOrders,
         setMenu,
         menu,
+        setPlacedOrders,
+        placedOrders
       }}
     >
       {children}
