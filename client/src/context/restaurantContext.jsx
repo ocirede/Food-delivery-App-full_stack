@@ -78,7 +78,6 @@ const RestaurantProvider = ({ children }) => {
       );
       if (response.data.success) {
         setRatings(response.data.ratings);
-        console.log("Ratings==>", ratings);
       }
     } catch (error) {
       console.log(error);
@@ -148,10 +147,12 @@ const RestaurantProvider = ({ children }) => {
 
       const newOrder = await axios.post(baseURL + "/orders/addnew", body);
       console.log(newOrder);
+
       setMenu([]);
       setPlacedOrders(newOrder.data)
       navigate("/checkout")
       console.log(newOrder.data)
+
     } catch (error) {
       console.log(error);
     }
