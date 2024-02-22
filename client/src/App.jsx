@@ -14,6 +14,7 @@ import OrdersPage from "./pages/OrdersPage";
 import RestaurantProvider from "./context/restaurantContext";
 import RatingPage from "./pages/RatingPage";
 import AddedCard from "./pages/AddedCard";
+import DescriptionPage from "./pages/DescriptionPage";
 
 
 export default function App() {
@@ -32,6 +33,8 @@ export default function App() {
               <Route path="/orders" element={<OrdersPage/>}/>
               <Route path="/card" element={<AddedCard/>}/>
               <Route path="/rating" element={<RatingPage />} />
+              <Route path="/description" element={<DescriptionPage />} />
+
             </Route>
 
               <Route path="/signup" element={<SignUp />} />
