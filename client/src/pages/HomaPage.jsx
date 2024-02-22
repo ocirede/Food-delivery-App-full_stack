@@ -1,6 +1,4 @@
-
 import React, { useState, useContext } from "react";
-
 
 import { RestaurantContext } from "../context/restaurantContext";
 import { Heart } from "lucide-react";
@@ -14,18 +12,15 @@ function HomaPage() {
 
   const [showRatings, setShowRatings] = useState(false);
 
-
   const handleDescription = (restaurantId) => {
     findRestaurant(restaurantId);
   };
-
 
   const handleViewRatings = (restaurantId) => {
     getRatingsForRestaurant(restaurantId);
     console.log("ratings==>", ratings);
     setShowRatings(true);
   };
-
 
   return (
     <>
@@ -73,13 +68,6 @@ function HomaPage() {
                       {restaurant.averageRating.toFixed(2)}
                     </div>
                   </span>
-                  <div>
-                    {ratings.map((rating, index) => (
-                        <div key={index}>
-                          <span>{rating.comment}</span>
-                        </div>
-                      ))}
-                  </div>
                 </div>
 
                 <button

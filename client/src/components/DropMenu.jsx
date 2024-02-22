@@ -1,6 +1,7 @@
 import { ChevronDown, CircleUserRound } from "lucide-react";
 import React, { useState } from "react";
 import { useAuthContext } from "../context/authContext";
+import { Link } from "react-router-dom";
 
 function DropMenu() {
   const {
@@ -39,8 +40,8 @@ function DropMenu() {
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"
                 >
-                  <a
-                    href="profile"
+                  <Link
+                    to="profile"
                     className="flex gap-1 px-4 py-2 text-gray-800 hover:bg-gray-100"
                     role="menuitem"
                   >
@@ -52,17 +53,17 @@ function DropMenu() {
                     ) : (
                       <>{user?.username}</>
                     )}
-                  </a>
+                  </Link>
 
                   <hr className="border-zinc-300" />
-                  <a
-                    href="signin"
+                  <Link
+                    to="signin"
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                     role="menuitem"
                     onClick={handeLogout}
                   >
                     Logout
-                  </a>
+                  </Link>
                 </div>
               </div>
             )}
