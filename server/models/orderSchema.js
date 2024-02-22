@@ -10,11 +10,13 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Restaurant",
     },
+
     menu: [{
       name: { type: String, required: true },
       description: { type: String },
       price: { type: Number, required: true },
     }]
+
   },
   {
     timestamps: true,

@@ -40,7 +40,10 @@ function OrdersPage() {
     if (user) {
       fetchData();
     }
-  }, []);
+
+  }, [user]);
+
+
 
   const handleAddReview = (restaurantId) => {
     navigate(`/rating?restaurantId=${restaurantId}`);

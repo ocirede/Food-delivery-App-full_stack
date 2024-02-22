@@ -59,7 +59,6 @@ export const getAllRestaurants = async (req, res) => {
 //Update a restaurant
 export const updateRestaurant = async (req, res) => {
   const { restaurantId } = req.params;
-  //updateUser(user._id, { address: updatedData }); front end
 
   try {
     const updatedRestaurant = await Restaurant.findByIdAndUpdate(
@@ -84,7 +83,7 @@ export const updateRestaurant = async (req, res) => {
   }
 };
 
-//logged user
+//find restaurant by id
 export const findRestaurant = async (req, res) => {
   try {
     //const restaurantId = req.body;

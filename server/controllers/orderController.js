@@ -6,7 +6,7 @@ import User from "../models/userSchema.js";
 export const handleAddNewOrder = async (req, res) => {
   try {
     const { userId, restaurantId, menuIds } = req.body;
-    console.log(req.body)
+
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).send({
@@ -21,7 +21,11 @@ export const handleAddNewOrder = async (req, res) => {
         error: "Restaurant not found.",
       });
     }
+
+
     const orderedMenuItems = [];
+
+
     for (const menuItem of menuIds) {
       const foundMenuItem = restaurant.menu.find(
         (item) => item._id.toString() === menuItem
@@ -56,6 +60,7 @@ export const handleAddNewOrder = async (req, res) => {
 };
 
 
+//get the users orders
 export const getOrdersForUser = async (req, res) => {
   const { userId } = req.params;
   try {

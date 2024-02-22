@@ -1,5 +1,4 @@
 import axios from "../config/axios.js";
-import { baseURL } from "../config/api.js";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./authContext.jsx";
@@ -14,6 +13,8 @@ const RestaurantProvider = ({ children }) => {
   const [restaurant, setRestaurant] = useState(null);
   const [menu, setMenu] = useState([]);
   const [count, setCount] = useState(0);
+
+  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
 
