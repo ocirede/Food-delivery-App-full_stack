@@ -25,20 +25,20 @@ const AuthProvider = ({ children }) => {
     : "";
 
   //fetch user
-
-  const fetchUser = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const response = await axios.get(baseURL + "/users/loggeduser");
-        setUser(response.data.user);
-        console.log("fetchedUser =====>", response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  };
   useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const response = await axios.get(baseURL + "/users/loggeduser");
+          setUser(response.data.user);
+          console.log("fetchedUser =====>", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
     fetchUser();
   }, []);
 

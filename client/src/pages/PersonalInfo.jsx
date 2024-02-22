@@ -6,13 +6,8 @@ import { baseURL } from "../config/api";
 import { Link } from "react-router-dom";
 
 function PersonalInfo() {
-  const {
-    user,
-    firstnameUppercase,
-    lastnameUppercase,
-    handleUpdateImage,
-    fetchUser,
-  } = useAuthContext();
+  const { user, firstnameUppercase, lastnameUppercase, handleUpdateImage } =
+    useAuthContext();
 
   return (
     <div>
