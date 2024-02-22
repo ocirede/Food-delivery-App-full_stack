@@ -5,7 +5,7 @@ import { useAuthContext } from "../context/authContext";
 import SubNav from "../components/SubNav";
 
 function HomaPage() {
-  const { restaurants, findRestaurant, ratings } =
+  const { restaurants, findRestaurant, ratings, getRatingsForRestaurant } =
     useContext(RestaurantContext);
   const { handleFavourites, user } = useAuthContext();
   const [showRatings, setShowRatings] = useState(false);
@@ -15,8 +15,9 @@ function HomaPage() {
   };
 
   const handleViewRatings = (restaurantId) => {
+    getRatingsForRestaurant(restaurantId);
     console.log("ratings==>", ratings);
-    setShowRatings(true); // Show ratings container when button is clicked
+    setShowRatings(true);
   };
 
   return (
