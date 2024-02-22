@@ -214,7 +214,6 @@ const AuthProvider = ({ children }) => {
         card,
         handleFavourites,
         fetchCard,
-        fetchUser,
       }}
     >
       {children}
