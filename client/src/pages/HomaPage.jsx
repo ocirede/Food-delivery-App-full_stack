@@ -40,7 +40,12 @@ function HomaPage() {
                   Location: {restaurant.address.city}
                 </span>
                 <span className="text-gray-500">
-                  Rating: {restaurant.averageRating.toFixed(2)}
+                  <span className="text-gray-500">
+                    Rating:{" "}
+                    {restaurant.averageRating
+                      ? restaurant.averageRating.toFixed(2)
+                      : "N/A"}
+                  </span>
                 </span>
               </div>
               <button
