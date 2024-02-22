@@ -44,7 +44,6 @@ const AuthProvider = ({ children }) => {
 
   //fetch card
 
-
   const fetchCard = async () => {
     try {
       if (user && user._id) {
@@ -60,7 +59,7 @@ const AuthProvider = ({ children }) => {
       console.error("Error fetching card:", error);
     }
   };
-  
+
   // registration user
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -119,7 +118,6 @@ const AuthProvider = ({ children }) => {
       );
       e.target.reset();
       setCard(newCard.newCard);
-      
     } catch (err) {
       console.log(err);
     }
@@ -215,7 +213,8 @@ const AuthProvider = ({ children }) => {
         handleUpdateAddress,
         card,
         handleFavourites,
-        fetchCard
+        fetchCard,
+        fetchUser,
       }}
     >
       {children}
