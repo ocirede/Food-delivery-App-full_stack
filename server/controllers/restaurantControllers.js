@@ -89,8 +89,10 @@ export const updateRestaurant = async (req, res) => {
 export const findRestaurant = async (req, res) => {
   try {
     //const restaurantId = req.body;
-    const restaurantId = req.params;
-    const restaurant = await Restaurant.findOne({ restaurantId });
+    const {restaurantId} = req.params;
+    console.log(restaurantId);
+    
+    const restaurant = await Restaurant.findById(restaurantId );
 
     res.send({ success: true, restaurant });
   } catch (error) {

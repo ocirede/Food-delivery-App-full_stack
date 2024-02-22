@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Profile from "../components/Profile";
 import { useAuthContext } from "../context/authContext";
 import { FilePenLine, Send } from "lucide-react";
@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 function PersonalInfo() {
   const { user, firstnameUppercase, lastnameUppercase, handleUpdateImage } =
     useAuthContext();
+
   return (
     <div>
       <Profile />
@@ -31,17 +32,37 @@ function PersonalInfo() {
             <Send />
           </button>
           {user?.address ? (
-            <div className="flex flex-col gap-2">
-              <span className="text-lg font-bold">
-                {firstnameUppercase} {lastnameUppercase}
-              </span>
-              <span>Email: {user?.email}</span>
-              <span>Phone number: {user?.address?.phone}</span>
-            </div>
+            <>
+              <div className=" flex gap-28">
+                <div className="flex flex-col gap-2">
+                  <span className="text-lg font-bold">
+                    {firstnameUppercase} {lastnameUppercase}
+                  </span>
+                  <span>Email: {user?.email}</span>
+                  <span>Phone number: {user?.address?.phone}</span>
+                </div>
+                <div className=" flex flex-col">
+                  <h3 className=" text-lg font-bold">Address:</h3>
+                  <span className=" text-lg">
+                    Street: {user?.address?.street}
+                  </span>
+                  <span className=" text-lg">
+                    Postal code: {user?.address?.postalCode}
+                  </span>
+                  <span className=" text-lg">City: {user?.address?.city}</span>
+                  <span className=" text-lg">
+                    Country: {user?.address?.country}
+                  </span>
+                </div>
+              </div>
+            </>
           ) : (
             <div className="flex flex-col gap-2">
               <span className="text-lg font-bold">
-                {user?.username} please add your personal infos in the <Link className=" bg-blue-500" to="/address">address</Link>
+                {user?.username} please add your personal infos in the{" "}
+                <Link className=" text-blue-500" to="/address">
+                  address
+                </Link>{" "}
                 section
               </span>
               <span>Email: {user?.email}</span>
@@ -49,28 +70,34 @@ function PersonalInfo() {
             </div>
           )}
         </form>
+
         <br />
         <br />
         <br />
         <br />
         <br />
         <br />
-       
-        <div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
           {user?.favourites?.length === 0 ? (
             <div>
-              <h3 className=" font-bold text-2xl">Favourites:</h3>
-              <h3 className=" text-lg ">
-                You’ll find your favorite restaurants  here. You can
-                add favorites by tapping the heart icon.
-              </h3>
+              <h3 className="text-2xl font-bold">Favourites:</h3>
+              <p className="text-lg mt-2 text-gray-600">
+                You’ll find your favorite restaurants here. You can add
+                favorites by tapping the heart icon.
+              </p>
             </div>
           ) : (
-            <div>
-              <h3 className=" text-4xl font-bold">Favourites:</h3>
-              <ul className=" flex flex-col mt-6 gap-4">
+            <div className="flex flex-col">
+              <h3 className="text-4xl font-bold">Favourites:</h3>
+              <ul className="mt-6">
                 {user?.favourites?.map((favourite, index) => (
-                  <li className=" text-lg font-bold " key={index}>{favourite.name}</li>
+                  <li key={index} className="mr-4 mb-2">
+                    <span className="text-lg font-bold">{favourite.name}</span>
+                    {index !== user.favourites.length - 1 && (
+                      <span className="mx-2 border-b border-gray-400"></span>
+                    )}
+                  </li>
                 ))}
               </ul>
             </div>

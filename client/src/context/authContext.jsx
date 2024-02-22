@@ -43,25 +43,22 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   //fetch card
-  useEffect(() => {
-    const fetchCard = async () => {
-      try {
-        if (user && user._id) {
-          const response = await axios.get(
-            `${baseURL}/cards/getcard/${user._id}`
-          );
-          console.log("card data", response.data);
-          setCard(response.data.card);
-        } else {
-          console.log("User or user._id is undefined");
-        }
-      } catch (error) {
-        console.error("Error fetching card:", error);
-      }
-    };
 
-    fetchCard();
-  }, []);
+  const fetchCard = async () => {
+    try {
+      if (user && user._id) {
+        const response = await axios.get(
+          `${baseURL}/cards/getcard/${user._id}`
+        );
+        console.log("card data", response.data);
+        setCard(response.data.cards);
+      } else {
+        console.log("User or user._id is undefined");
+      }
+    } catch (error) {
+      console.error("Error fetching card:", error);
+    }
+  };
 
   // registration user
   const handleRegister = async (e) => {
@@ -155,6 +152,7 @@ const AuthProvider = ({ children }) => {
       firstname: e.target.firstname.value,
       lastname: e.target.lastname.value,
       street: e.target.street.value,
+      city: e.target.city.value,
       postalCode: e.target.postalcode.value,
       country: e.target.country.value,
       phone: e.target.phone.value,
@@ -215,6 +213,8 @@ const AuthProvider = ({ children }) => {
         handleUpdateAddress,
         card,
         handleFavourites,
+        fetchCard,
+        fetchUser,
       }}
     >
       {children}

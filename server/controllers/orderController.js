@@ -8,16 +8,13 @@ export const handleAddNewOrder = async (req, res) => {
     const { userId, restaurantId, menuIds } = req.body;
 
     const user = await User.findById(userId);
-
     if (!user) {
       return res.status(404).send({
         success: false,
         error: "User not found.",
       });
     }
-
     const restaurant = await Restaurant.findById(restaurantId);
-
     if (!restaurant) {
       return res.status(404).send({
         success: false,
@@ -25,7 +22,9 @@ export const handleAddNewOrder = async (req, res) => {
       });
     }
 
+
     const orderedMenuItems = [];
+
 
     for (const menuItem of menuIds) {
       const foundMenuItem = restaurant.menu.find(
@@ -49,12 +48,9 @@ export const handleAddNewOrder = async (req, res) => {
       restaurant: restaurantId,
       menu: orderedMenuItems,
     });
-
     await newOrder.populate("user");
     await newOrder.populate("restaurant");
-
     await newOrder.save();
-
     res.send({ success: true, newOrder });
     console.log("New Order placed successfully:", newOrder);
   } catch (error) {
@@ -62,6 +58,7 @@ export const handleAddNewOrder = async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 };
+
 
 //get the users orders
 export const getOrdersForUser = async (req, res) => {
