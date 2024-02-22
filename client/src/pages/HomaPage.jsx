@@ -1,16 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { RestaurantContext } from "../context/restaurantContext";
 import { Heart } from "lucide-react";
 import { useAuthContext } from "../context/authContext";
 import SubNav from "../components/SubNav";
 
 function HomaPage() {
-  const { restaurants, findRestaurant } = useContext(RestaurantContext);
+  const { restaurants, findRestaurant, ratings, getRatingsForRestaurant } =
+    useContext(RestaurantContext);
   const { handleFavourites, user } = useAuthContext();
-
+ 
   const handleDescription = (restaurantId) => {
     findRestaurant(restaurantId);
   };
+
   return (
     <>
       <SubNav />
@@ -51,6 +53,13 @@ function HomaPage() {
                   <span className="text-gray-500">
                     Rating: {restaurant.averageRating.toFixed(2)}
                   </span>
+                  <div>
+                    {ratings.map((rating, index) => (
+                        <div key={index}>
+                          <span>{rating.comment}</span>
+                        </div>
+                      ))}
+                  </div>
                 </div>
               </div>
             </div>

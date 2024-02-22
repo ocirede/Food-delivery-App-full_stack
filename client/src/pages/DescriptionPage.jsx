@@ -32,8 +32,8 @@ function DescriptionPage() {
                   </div>
                   <div className=" flex justify-center ">
                     {" "}
-                    <Plus className=" cursor-pointer" />
-                    <Minus className=" cursor-pointer" />
+                    <Plus onClick={() => setMenu(prevOrders => [...prevOrders, item._id])} className=" cursor-pointer" />
+                    <Minus onClick={() => setMenu((prevOrders) => prevOrders.filter((item) => item !== item._id))} className=" cursor-pointer" />
                   </div>
                 </div>
               </div>
