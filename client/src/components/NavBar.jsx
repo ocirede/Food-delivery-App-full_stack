@@ -16,7 +16,7 @@ function NavBar() {
       <nav className=" w-full h-28 flex items-center">
         <ul className=" w-full flex items-center justify-around gap-10 ">
           <Home />
-          <div className=" flex items-center gap-6">
+          <div className=" w-1/3 flex items-center gap-6">
             {(menu.length === 0 ? <h2 className=" text-xl">I am empty and I am hungry!!</h2> : null)}
             <ShoppingBag className=" w-20 h-20" />({menu.length})
           </div>
@@ -24,7 +24,7 @@ function NavBar() {
           {user ? (
             <DropMenu />
           ) : (
-            <div className=" flex gap-6 mr-40">
+            <div className=" w-1/3 flex gap-6 ">
               <Link to="/signup">Sign-Up</Link>
               <Link to="/signin">Sign-In</Link>
             </div>

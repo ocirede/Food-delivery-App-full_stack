@@ -10,7 +10,6 @@ function Home() {
 
   return (
     <div className="w-1/3 flex justify-start items-center gap-6 ml-16">
-      <img src="./images/DriveriA.png" alt="logo" width={110} />
       <Link to="/">
         <HomeIcon onClick={() => handleResetCategoryClick()} className="w-8 h-8" />
       </Link>
