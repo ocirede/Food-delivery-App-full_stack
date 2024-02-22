@@ -10,6 +10,7 @@ import {
   handleSignIn,
   loggedUser,
   updateUser,
+  updateUserAddress,
 } from "../controllers/userControllers.js";
 
 const userRoutes = express.Router();
@@ -21,7 +22,7 @@ userRoutes.get("/healthcheck", (req, res) => {
 userRoutes.post(
   "/register",
   [
-    // Sanitization middleware
+    //  Sanitization middleware
     body("username").trim().escape(),
     body("email").trim().escape(),
   ],
@@ -31,11 +32,13 @@ userRoutes.post("/signin", handleSignIn);
 userRoutes.get("/loggeduser", auth, loggedUser);
 
 userRoutes.put(
-  "/updateuser/:userId",
+  "/update/:userId",
   //should match the name attribute of the input field in your form where the file is being uploaded
   profileImageUpload.single("profileImage"),
   updateUser
 );
+
+userRoutes.put("/updateaddress/:userId", updateUserAddress);
 
 userRoutes.put("/favourite/:restaurantId", addToFavorites);
 userRoutes.delete("/delete/:userId", auth, deleteUser);
