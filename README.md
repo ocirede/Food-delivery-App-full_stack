@@ -12,4 +12,4 @@
 
 --A beginner group project from me and my colleague [Federico](https://github.com/ocirede) working together and doing our first steps in full stack applications--
 
-Click [here](https://www.goocle.com/) to visit the website
+Click [here](https://www.google.com/) to visit the website
