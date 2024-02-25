@@ -5,7 +5,7 @@ import User from "../models/userSchema.js";
 //Add new order
 export const handleAddNewOrder = async (req, res) => {
   try {
-    const { userId, restaurantId, menuIds } = req.body;
+    const { userId, restaurantId, menuItems } = req.body;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -22,13 +22,11 @@ export const handleAddNewOrder = async (req, res) => {
       });
     }
 
-
     const orderedMenuItems = [];
 
-
-    for (const menuItem of menuIds) {
+    for (const menuItem of menuItems) {
       const foundMenuItem = restaurant.menu.find(
-        (item) => item._id.toString() === menuItem
+        (item) => item._id.toString() === menuItem._id
       );
       //console.log("foundMenuItem==>", foundMenuItem);
       if (!foundMenuItem) {
@@ -40,6 +38,7 @@ export const handleAddNewOrder = async (req, res) => {
         name: foundMenuItem.name,
         description: foundMenuItem.description,
         price: foundMenuItem.price,
+        quantity: menuItem.quantity,
       });
     }
     //console.log("orderedMenuItems==>", orderedMenuItems);
@@ -58,7 +57,6 @@ export const handleAddNewOrder = async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 };
-
 
 //get the users orders
 export const getOrdersForUser = async (req, res) => {
