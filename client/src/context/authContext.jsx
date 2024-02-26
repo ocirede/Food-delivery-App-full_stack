@@ -183,15 +183,19 @@ const AuthProvider = ({ children }) => {
   const handleFavourites = async (restaurantId, userId) => {
     const body = {
       userId,
+      restaurantId,
     };
-
+    console.log(restaurantId, userId);
     try {
       const response = await axios.put(
         baseURL + `/users/favourite/${restaurantId}`,
         body
       );
-
       setUser(response.data.user);
+      localStorage.setItem(
+        "favourites",
+        JSON.stringify(response.data.user.favourites)
+      );
       console.log("===> add fav", response.data);
     } catch (err) {
       console.log(err);

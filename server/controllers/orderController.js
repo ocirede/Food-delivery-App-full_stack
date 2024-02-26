@@ -6,7 +6,7 @@ import User from "../models/userSchema.js";
 export const handleAddNewOrder = async (req, res) => {
   try {
     const { userId, restaurantId, menuItems } = req.body;
-
+    console.log(req.body);
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).send({
@@ -14,6 +14,7 @@ export const handleAddNewOrder = async (req, res) => {
         error: "User not found.",
       });
     }
+
     const restaurant = await Restaurant.findById(restaurantId);
     if (!restaurant) {
       return res.status(404).send({
@@ -24,32 +25,38 @@ export const handleAddNewOrder = async (req, res) => {
 
     const orderedMenuItems = [];
 
-    for (const menuItem of menuItems) {
-      const foundMenuItem = restaurant.menu.find(
-        (item) => item._id.toString() === menuItem._id
-      );
-      //console.log("foundMenuItem==>", foundMenuItem);
-      if (!foundMenuItem) {
-        throw new Error(
-          `Menu item with ID ${menuItem} not found in the restaurant's menu.`
+    if (Array.isArray(menuItems)) {
+      for (const menuItem of menuItems) {
+        const foundMenuItem = restaurant.menu.find(
+          (item) => item._id.toString() === menuItem.itemId
         );
+        if (!foundMenuItem) {
+          throw new Error(
+            `Menu item with ID ${menuItem.itemId} not found in the restaurant's menu.`
+          );
+        }
+
+        orderedMenuItems.push({
+          name: foundMenuItem.name,
+          description: foundMenuItem.description,
+          price: foundMenuItem.price,
+          quantity: menuItem.quantity,
+        });
       }
-      orderedMenuItems.push({
-        name: foundMenuItem.name,
-        description: foundMenuItem.description,
-        price: foundMenuItem.price,
-        quantity: menuItem.quantity,
-      });
+    } else {
+      throw new Error("Orders is not an array or is undefined.");
     }
-    //console.log("orderedMenuItems==>", orderedMenuItems);
+
     const newOrder = new Order({
       user: userId,
       restaurant: restaurantId,
       menu: orderedMenuItems,
     });
+
+    await newOrder.save();
+
     await newOrder.populate("user");
     await newOrder.populate("restaurant");
-    await newOrder.save();
     res.send({ success: true, newOrder });
     console.log("New Order placed successfully:", newOrder);
   } catch (error) {

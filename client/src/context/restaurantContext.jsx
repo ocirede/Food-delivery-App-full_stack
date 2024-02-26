@@ -1,22 +1,29 @@
 import axios from "../config/axios.js";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "./authContext.jsx";
+import {baseURL} from "../config/api.js";
 
 export const RestaurantContext = createContext();
 
 const RestaurantProvider = ({ children }) => {
-  const { user } = useAuthContext();
   const [restaurants, setRestaurants] = useState(null);
-  const [ratings, setRatings] = useState([]);
-  const [userOrders, setUserOrders] = useState(null);
-  const [placedOrders, setPlacedOrders] = useState(null)
   const [restaurant, setRestaurant] = useState(null);
-  const [menu, setMenu] = useState([]);
+  const [ratings, setRatings] = useState([]);
+  const [userOrders, setUserOrders] = useState([]);
+  const [placedOrders, setPlacedOrders] = useState(null);
+  const [favourite, setFavourite] = useState([]);
+  const [itemCounts, setItemCounts] = useState({});
 
-  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
+
+
+  // fetching: all restaurants, rating for a restaurant,
+  useEffect(() => {
+    fetchRestaurants();
+    getRatingsForRestaurant(restaurants?._id);
+
+  }, []);
 
   //fetch the restaurants by category
 
@@ -27,6 +34,8 @@ const RestaurantProvider = ({ children }) => {
       );
       if (response.data.success) {
         setRestaurants(response.data.restaurants);
+        const favorites = JSON.parse(localStorage.getItem("favourites"));
+        setFavourite(favorites);
       }
     } catch (error) {
       console.log(error);
@@ -39,13 +48,10 @@ const RestaurantProvider = ({ children }) => {
     fetchRestaurants(category);
   };
 
+    //function to reset filter by category
   const handleResetCategoryClick = () => {
     fetchRestaurants();
   };
-
-  useEffect(() => {
-    fetchRestaurants();
-  }, []);
 
   //add new rating
   const addNewRating = async (userId, restaurantId, ratingNumber, comment) => {
@@ -84,25 +90,8 @@ const RestaurantProvider = ({ children }) => {
     }
   };
 
-  useEffect(() =>{
-    getRatingsForRestaurant(restaurants?._id)
-  }, []);
+  
 
-  //add new order
-  const placeNewOrder = async (userId, restaurantId, menuId) => {
-    try {
-      const response = await axios.post(baseURL + `/orders/addnew`, {
-        userId,
-        restaurantId,
-        menuId,
-      });
-      if (response.data.success) {
-        alert("Order placed successfully");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   //fetch users order history
   const userOrderhistory = async (userId) => {
@@ -136,27 +125,74 @@ const RestaurantProvider = ({ children }) => {
     }
   };
 
+
   // Add new order
-  const AddOrder = async (userId, restaurantId, menuIds) => {
+  const placeNewOrder = async (userId, restaurantId, menuItems) => {
     try {
       const body = {
         userId,
         restaurantId,
-        menuIds,
+        menuItems,
       };
 
       const newOrder = await axios.post(baseURL + "/orders/addnew", body);
-      console.log(newOrder);
 
-      setMenu([]);
-      setPlacedOrders(newOrder.data)
-      navigate("/checkout")
-      console.log(newOrder.data)
-
+      setPlacedOrders(newOrder.data);
+      setUserOrders([])
+      navigate("/checkout");
+      console.log(newOrder.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // Increment order quantity
+  const handleIncrement = (itemId) => {
+
+    setItemCounts((prevCounts) => ({
+      ...prevCounts,
+      [itemId]: (prevCounts[itemId] || 0) + 1
+      
+    }));
+    setUserOrders((previousOrders) => {
+      const existingOrderItem = previousOrders.find(
+        (item) => item.itemId === itemId
+      );
+
+      if (existingOrderItem) {
+        return previousOrders.map((item) =>
+          item.itemId === itemId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [...previousOrders, { itemId, quantity: 1 }];
+      }
+
+    });
+
+  };
+
+  // decrement order quantity
+  const handleDecrement = (itemId) => {
+    if (itemCounts[itemId] && itemCounts[itemId] > 0) {
+        setItemCounts((prevCounts) => ({
+            ...prevCounts,
+            [itemId]: prevCounts[itemId] - 1,
+        }));
+        setUserOrders((previousOrders) => {
+         const updaredOrders =   previousOrders.map((item) => 
+          itemId === item.itemId ? { ...item, quantity: item.quantity - 1 } : item
+          );
+          const filteredOrders = updaredOrders.filter((item) => item.quantity > 0);
+          return filteredOrders;
+
+      });
+    }
+};
+
+
+
   return (
     <RestaurantContext.Provider
       value={{
@@ -164,6 +200,10 @@ const RestaurantProvider = ({ children }) => {
         ratings,
         userOrders,
         restaurant,
+        itemCounts,
+        userOrders,
+        placedOrders,
+        favourite,
         fetchRestaurants,
         getRatingsForRestaurant,
         addNewRating,
@@ -172,12 +212,12 @@ const RestaurantProvider = ({ children }) => {
         handleRestaurantsCategory,
         handleResetCategoryClick,
         findRestaurant,
-        AddOrder,
         setUserOrders,
-        setMenu,
-        menu,
         setPlacedOrders,
-        placedOrders
+        handleIncrement,
+        handleDecrement,
+        setItemCounts,
+        
       }}
     >
       {children}
