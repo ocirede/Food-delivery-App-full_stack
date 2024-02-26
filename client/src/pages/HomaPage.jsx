@@ -12,9 +12,7 @@ function HomaPage() {
 
   const [showRatings, setShowRatings] = useState(false);
 
-  const handleDescription = (restaurantId) => {
-    findRestaurant(restaurantId);
-  };
+
 
   const handleViewRatings = (restaurantId) => {
     getRatingsForRestaurant(restaurantId);
@@ -32,7 +30,7 @@ function HomaPage() {
             <div key={index} className="bg-white rounded-lg shadow-md p-4">
               <div>
                 <div className="flex justify-between">
-                  <button onClick={() => handleDescription(restaurant._id)}>
+                  <button onClick={() => findRestaurant(restaurant._id)}>
                     <h2 className="text-xl font-semibold mb-2 underline">
                       {restaurant.name}
                     </h2>
