@@ -12,6 +12,8 @@ function HomaPage() {
 
   const [showRatings, setShowRatings] = useState(false);
 
+
+
   const handleViewRatings = (restaurantId) => {
     getRatingsForRestaurant(restaurantId);
     console.log("ratings==>", ratings);
