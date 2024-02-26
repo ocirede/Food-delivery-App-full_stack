@@ -11,7 +11,7 @@ const MenuItemCard = ({ item }) => {
     console.log(itemId);
   };
 
-  const { itemCounts, handleIncrement, handleDecrement, placeNewOrder } =
+  const { itemCounts, handleIncrement, handleDecrement,  } =
     useContext(RestaurantContext);
 
   return (

@@ -9,25 +9,25 @@ import { RestaurantContext } from "../context/restaurantContext";
 
 function NavBar() {
   const { user } = useAuthContext();
-  const { userOrders, restaurant } = useContext(RestaurantContext);
+  const { userAddedOrders, restaurant, placeNewOrder } = useContext(RestaurantContext);
   return (
     <>
       <nav className=" w-full h-28 flex items-center">
         <ul className=" w-full flex items-center justify-around gap-10 ">
           <Home />
 
-          {userOrders.length > 0 ? (
+          {userAddedOrders.length > 0 ? (
             <div className="w-1/3 flex gap-4">
               <ul className="w-1/3 h-12 flex p-2 items-center  bg-cyan-500">
                 View order:
-                {userOrders.reduce((acc, item) => {
+                {userAddedOrders.reduce((acc, item) => {
                   acc += item.quantity;
                   return acc;
                 }, 0)}{" "}
               </ul>
               {/* <button
                 onClick={() =>
-                  placeNewOrder(user._id, restaurant._id, userOrders)
+                  placeNewOrder(user._id, restaurant._id, userAddedOrders)
                 }
               ></button> */}
             </div>

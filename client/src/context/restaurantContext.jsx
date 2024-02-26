@@ -10,6 +10,7 @@ const RestaurantProvider = ({ children }) => {
   const [restaurant, setRestaurant] = useState(null);
   const [ratings, setRatings] = useState([]);
   const [userOrders, setUserOrders] = useState([]);
+  const [userAddedOrders, setUserAddedOrders] = useState([]);
   const [placedOrders, setPlacedOrders] = useState(null);
   const [favourite, setFavourite] = useState([]);
   const [itemCounts, setItemCounts] = useState({});
@@ -132,7 +133,7 @@ const RestaurantProvider = ({ children }) => {
       const newOrder = await axios.post(baseURL + "/orders/addnew", body);
 
       setPlacedOrders(newOrder.data);
-      setUserOrders([]);
+      setUserAddedOrders([]);
       navigate("/checkout");
       console.log(newOrder.data);
     } catch (error) {
@@ -146,7 +147,7 @@ const RestaurantProvider = ({ children }) => {
       ...prevCounts,
       [itemId]: (prevCounts[itemId] || 0) + 1,
     }));
-    setUserOrders((previousOrders) => {
+    setUserAddedOrders((previousOrders) => {
       const existingOrderItem = previousOrders.find(
         (item) => item.itemId === itemId
       );
@@ -170,7 +171,7 @@ const RestaurantProvider = ({ children }) => {
         ...prevCounts,
         [itemId]: prevCounts[itemId] - 1,
       }));
-      setUserOrders((previousOrders) => {
+      setUserAddedOrders((previousOrders) => {
         const updaredOrders = previousOrders.map((item) =>
           itemId === item.itemId
             ? { ...item, quantity: item.quantity - 1 }
@@ -195,6 +196,7 @@ const RestaurantProvider = ({ children }) => {
         userOrders,
         placedOrders,
         favourite,
+        userAddedOrders,
         fetchRestaurants,
         getRatingsForRestaurant,
         addNewRating,
@@ -208,6 +210,7 @@ const RestaurantProvider = ({ children }) => {
         handleIncrement,
         handleDecrement,
         setItemCounts,
+         setUserAddedOrders
       }}
     >
       {children}
