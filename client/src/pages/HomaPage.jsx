@@ -40,20 +40,11 @@ function HomaPage() {
 
                   <button
                     onClick={() => handleFavourites(restaurant._id, user._id)}
-                  >
-                    {user?.favourites?.includes(restaurant._id) ? (
-                      <Heart style={{ fill: "red" }} />
-                    ) : (
-                      <Heart />
-                    )}
-                  </button>
+                  ></button>
                 </div>
 
                 <p className="text-gray-600">{restaurant.description}</p>
                 <div className="mt-4 flex flex-col justify-between gap-2">
-                  <span className="text-gray-500">
-                    Location: {restaurant.address.city}
-                  </span>
                   <span className="text-gray-500 flex gap-3 ">
                     Rating:{" "}
                     <div className="flex items-center">
@@ -86,7 +77,9 @@ function HomaPage() {
       </div>
 
       {showRatings && (
+
         <ShowRatings ratings={ratings} setShowRatings={setShowRatings} />
+
       )}
     </>
   );

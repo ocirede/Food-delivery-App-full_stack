@@ -12,6 +12,10 @@ ratingRoutes.get("/healthcheck", (req, res) => {
 
 ratingRoutes.post("/addnew", handleAddNewRating);
 
+
+
 ratingRoutes.get("/getforrestaurant/:restaurantId", getRatingsForRestaurant);
+
+
 
 export default ratingRoutes;

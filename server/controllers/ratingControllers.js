@@ -60,6 +60,7 @@ export const handleAddNewRating = async (req, res) => {
   }
 };
 
+
 //get ratings for the restaurant
 export const getRatingsForRestaurant = async (req, res) => {
   const { restaurantId } = req.params;
