@@ -3,11 +3,12 @@ import Restaurant from "../models/restaurantSchema.js";
 //Add new restaurant
 export const handleAddNewReastaurant = async (req, res) => {
   try {
-    const { name, description, address, menu, category } = req.body;
+    const { name, description, info, address, menu, category } = req.body;
 
     const newReastaurant = new Restaurant({
       name,
       description,
+      info,
       address,
       menu,
       category,
