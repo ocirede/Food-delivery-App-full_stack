@@ -209,8 +209,13 @@ const AuthProvider = ({ children }) => {
       const response = await axios.delete(baseURL + `/users/delete/`, {
         data: userData,
       });
-      localStorage.removeItem("token");
-      navigate("/");
+
+      if (response.data.success) {
+        localStorage.removeItem("token");
+        alert("Your accound deleted sucessfully");
+        navigate("/");
+      }
+
       console.log("User deleted:", response.data.message);
     } catch (error) {
       console.log(error);
