@@ -28,6 +28,9 @@ function HomaPage() {
           {restaurants?.map((restaurant, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md p-4">
               <div>
+                <div>
+                  <img src={restaurant?.image} alt="" />
+                </div>
                 <div className="flex justify-between">
                   <button onClick={() => findRestaurant(restaurant._id)}>
                     <h2 className="text-xl font-semibold mb-2 underline">
