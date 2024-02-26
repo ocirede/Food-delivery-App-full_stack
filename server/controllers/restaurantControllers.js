@@ -3,17 +3,19 @@ import Restaurant from "../models/restaurantSchema.js";
 //Add new restaurant
 export const handleAddNewReastaurant = async (req, res) => {
   try {
-    const { name, description, address } = req.body;
+    const { name, description, address, menu, category } = req.body;
 
     const newReastaurant = new Restaurant({
       name,
       description,
       address,
+      menu,
+      category,
     });
     await newReastaurant.save();
 
-    res.send({ success: true, newUser });
-    console.log("New restaurant created successfully:", newUser);
+    res.send({ success: true, newReastaurant });
+    console.log("New restaurant created successfully:", newReastaurant);
   } catch (error) {
     console.error("Error creating the restaurant");
     res.status(500).json({ success: false, error: error.message });

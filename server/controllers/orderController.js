@@ -53,10 +53,10 @@ export const handleAddNewOrder = async (req, res) => {
       menu: orderedMenuItems,
     });
 
-      await newOrder.save();
+    await newOrder.save();
 
-      await newOrder.populate("user")
-      await newOrder.populate("restaurant")
+    await newOrder.populate("user");
+    await newOrder.populate("restaurant");
     res.send({ success: true, newOrder });
     console.log("New Order placed successfully:", newOrder);
   } catch (error) {
