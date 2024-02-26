@@ -1,7 +1,7 @@
 import axios from "../config/axios.js";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {baseURL} from "../config/api.js";
+import { baseURL } from "../config/api.js";
 
 export const RestaurantContext = createContext();
 
@@ -14,15 +14,12 @@ const RestaurantProvider = ({ children }) => {
   const [favourite, setFavourite] = useState([]);
   const [itemCounts, setItemCounts] = useState({});
 
-
   const navigate = useNavigate();
-
 
   // fetching: all restaurants, rating for a restaurant,
   useEffect(() => {
     fetchRestaurants();
-    getRatingsForRestaurant(restaurants?._id);
-
+    //getRatingsForRestaurant(restaurants?._id);
   }, []);
 
   //fetch the restaurants by category
@@ -48,7 +45,7 @@ const RestaurantProvider = ({ children }) => {
     fetchRestaurants(category);
   };
 
-    //function to reset filter by category
+  //function to reset filter by category
   const handleResetCategoryClick = () => {
     fetchRestaurants();
   };
@@ -90,9 +87,6 @@ const RestaurantProvider = ({ children }) => {
     }
   };
 
-  
-
-
   //fetch users order history
   const userOrderhistory = async (userId) => {
     try {
@@ -125,7 +119,6 @@ const RestaurantProvider = ({ children }) => {
     }
   };
 
-
   // Add new order
   const placeNewOrder = async (userId, restaurantId, menuItems) => {
     try {
@@ -138,7 +131,7 @@ const RestaurantProvider = ({ children }) => {
       const newOrder = await axios.post(baseURL + "/orders/addnew", body);
 
       setPlacedOrders(newOrder.data);
-      setUserOrders([])
+      setUserOrders([]);
       navigate("/checkout");
       console.log(newOrder.data);
     } catch (error) {
@@ -148,11 +141,9 @@ const RestaurantProvider = ({ children }) => {
 
   // Increment order quantity
   const handleIncrement = (itemId) => {
-
     setItemCounts((prevCounts) => ({
       ...prevCounts,
-      [itemId]: (prevCounts[itemId] || 0) + 1
-      
+      [itemId]: (prevCounts[itemId] || 0) + 1,
     }));
     setUserOrders((previousOrders) => {
       const existingOrderItem = previousOrders.find(
@@ -168,30 +159,29 @@ const RestaurantProvider = ({ children }) => {
       } else {
         return [...previousOrders, { itemId, quantity: 1 }];
       }
-
     });
-
   };
 
   // decrement order quantity
   const handleDecrement = (itemId) => {
     if (itemCounts[itemId] && itemCounts[itemId] > 0) {
-        setItemCounts((prevCounts) => ({
-            ...prevCounts,
-            [itemId]: prevCounts[itemId] - 1,
-        }));
-        setUserOrders((previousOrders) => {
-         const updaredOrders =   previousOrders.map((item) => 
-          itemId === item.itemId ? { ...item, quantity: item.quantity - 1 } : item
-          );
-          const filteredOrders = updaredOrders.filter((item) => item.quantity > 0);
-          return filteredOrders;
-
+      setItemCounts((prevCounts) => ({
+        ...prevCounts,
+        [itemId]: prevCounts[itemId] - 1,
+      }));
+      setUserOrders((previousOrders) => {
+        const updaredOrders = previousOrders.map((item) =>
+          itemId === item.itemId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        );
+        const filteredOrders = updaredOrders.filter(
+          (item) => item.quantity > 0
+        );
+        return filteredOrders;
       });
     }
-};
-
-
+  };
 
   return (
     <RestaurantContext.Provider
@@ -217,7 +207,6 @@ const RestaurantProvider = ({ children }) => {
         handleIncrement,
         handleDecrement,
         setItemCounts,
-        
       }}
     >
       {children}
