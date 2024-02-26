@@ -16,10 +16,8 @@ function NavBar() {
         <ul className=" w-full flex items-center justify-around gap-10 ">
           <Home />
           <div className=" w-1/3 flex items-center gap-6">
-
-             <h2 className=" text-xl">I am empty and I am hungry!!</h2> 
+            <h2 className=" text-xl">I am empty and I am hungry!!</h2>
             <ShoppingBag className=" w-20 h-20" />
-
           </div>
 
           {user ? (
