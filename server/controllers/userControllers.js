@@ -82,7 +82,7 @@ export const loggedUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const { userId, password } = req.body;
 
-  console.log("body==>", req.body);
+  //console.log("body==>", req.body);
 
   try {
     const findUser = await User.findById(userId);
@@ -106,7 +106,7 @@ export const deleteUser = async (req, res) => {
       });
     }
 
-    console.log("User matched==>", isMatched);
+    // console.log("User matched==>", isMatched);
 
     const deletedUser = await User.findByIdAndDelete(userId);
 
@@ -117,7 +117,7 @@ export const deleteUser = async (req, res) => {
       });
     }
 
-    res.send({ message: "User deleted successfully!" });
+    res.send({ success: true, message: "User deleted successfully!" });
   } catch (error) {
     console.log("Error deleting the user:", error.message);
     res.status(500).send({ success: false, error: error.message });

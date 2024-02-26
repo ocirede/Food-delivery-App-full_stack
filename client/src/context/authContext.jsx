@@ -213,7 +213,7 @@ const AuthProvider = ({ children }) => {
       if (response.data.success) {
         localStorage.removeItem("token");
         alert("Your accound deleted sucessfully");
-        navigate("/");
+        navigate("/signin");
       }
 
       console.log("User deleted:", response.data.message);
