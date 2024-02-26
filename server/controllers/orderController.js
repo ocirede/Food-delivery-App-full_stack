@@ -6,7 +6,9 @@ import User from "../models/userSchema.js";
 export const handleAddNewOrder = async (req, res) => {
   try {
     const { userId, restaurantId, menuItems } = req.body;
+
     console.log(req.body);
+
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).send({
@@ -25,10 +27,12 @@ export const handleAddNewOrder = async (req, res) => {
 
     const orderedMenuItems = [];
 
+
     if (Array.isArray(menuItems)) {
       for (const menuItem of menuItems) {
         const foundMenuItem = restaurant.menu.find(
           (item) => item._id.toString() === menuItem.itemId
+
         );
         if (!foundMenuItem) {
           throw new Error(
@@ -43,8 +47,17 @@ export const handleAddNewOrder = async (req, res) => {
           quantity: menuItem.quantity,
         });
       }
+
+      orderedMenuItems.push({
+        name: foundMenuItem.name,
+        description: foundMenuItem.description,
+        price: foundMenuItem.price,
+        quantity: menuItem.quantity,
+      });
+
     } else {
       throw new Error("Orders is not an array or is undefined.");
+
     }
 
     const newOrder = new Order({

@@ -1,8 +1,15 @@
-client .env==>>
-VITE_BASE_URL=http://localhost:4002
+### **Full Stack Food Delivery App**
 
-server .env==>>
-DB_URI="mongodb+srv://kostasbouzianis:rZ2I0RPveIfKIb32@todo-list-cluster.knlg0ut.mongodb.net/?retryWrites=true&w=majority"
-PORT=4002
-DB_NAME=food-delivery-app-project-db
-ok
+- **Features:**
+
+  - Register new user - Login user / error handling
+  - Another feature
+  - Another feature
+  - Another feature
+  - Another feature
+
+  Note: Here the notes if we have
+
+--A beginner group project from me and my colleague [Federico](https://github.com/ocirede) working together and doing our first steps in full stack applications--
+
+Click [here](https://www.google.com/) to visit the website
