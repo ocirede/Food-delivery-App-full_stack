@@ -46,6 +46,7 @@ const RestaurantProvider = ({ children }) => {
 
   const handleRestaurantsCategory = (category) => {
     fetchRestaurants(category);
+    console.log("clicked")
   };
 
     //function to reset filter by category

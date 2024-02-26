@@ -5,7 +5,6 @@ import Home from "./Home";
 import { useAuthContext } from "../context/authContext";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
-import { RestaurantContext } from "../context/restaurantContext";
 
 function NavBar() {
   const { user } = useAuthContext();
