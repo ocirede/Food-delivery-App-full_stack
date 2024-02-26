@@ -18,6 +18,7 @@ function NavBar() {
           <div className=" w-1/3 flex items-center gap-6">
             <h2 className=" text-xl">I am empty and I am hungry!!</h2>
             <ShoppingBag className=" w-20 h-20" />
+            >>>>>>>>> Temporary merge branch 2
           </div>
 
           {user ? (
