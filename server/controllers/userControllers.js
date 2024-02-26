@@ -80,10 +80,21 @@ export const loggedUser = async (req, res) => {
 
 //Delete profile
 export const deleteUser = async (req, res) => {
-  const { userId } = req.params;
+  const { userId, password } = req.body;
+
+  //console.log("body==>", req.body);
 
   try {
     const findUser = await User.findById(userId);
+
+    const isMatched = await bcrypt.compare(password, findUser.password);
+
+    if (!isMatched || !findUser)
+      return res.status(400).send({
+        success: false,
+        error: "Please type the correct password",
+      });
+
     if (findUser.image) {
       const filePath = "uploads/profileImage/" + findUser.image;
       fs.unlink(filePath, (err) => {
@@ -95,6 +106,8 @@ export const deleteUser = async (req, res) => {
       });
     }
 
+    // console.log("User matched==>", isMatched);
+
     const deletedUser = await User.findByIdAndDelete(userId);
 
     if (!deletedUser) {
@@ -104,7 +117,7 @@ export const deleteUser = async (req, res) => {
       });
     }
 
-    res.send({ message: "User deleted successfully!" });
+    res.send({ success: true, message: "User deleted successfully!" });
   } catch (error) {
     console.log("Error deleting the user:", error.message);
     res.status(500).send({ success: false, error: error.message });
