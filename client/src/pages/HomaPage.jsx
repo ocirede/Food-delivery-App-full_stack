@@ -77,9 +77,7 @@ function HomaPage() {
       </div>
 
       {showRatings && (
-
         <ShowRatings ratings={ratings} setShowRatings={setShowRatings} />
-
       )}
     </>
   );
