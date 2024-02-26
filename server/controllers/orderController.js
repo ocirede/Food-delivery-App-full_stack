@@ -6,7 +6,8 @@ import User from "../models/userSchema.js";
 export const handleAddNewOrder = async (req, res) => {
   try {
     const { userId, restaurantId, menuItems } = req.body;
-    console.log(req.body);
+
+    console.log("order body===>>", req.body);
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).send({
