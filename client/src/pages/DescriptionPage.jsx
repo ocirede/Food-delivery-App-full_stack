@@ -4,10 +4,9 @@ import { useAuthContext } from "../context/authContext";
 import MenuItemCard from "../components/MenuItemCard";
 
 function DescriptionPage() {
-  const { restaurant,userOrders } =
+  const { restaurant} =
     useContext(RestaurantContext);
   const { user } = useAuthContext();
-  console.log(userOrders);
 
   return (
     <div className=" flex flex-col justify-center  ml-5  mt-6">
