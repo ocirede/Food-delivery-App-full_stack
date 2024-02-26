@@ -3,9 +3,10 @@ import { Plus } from "lucide-react";
 import { useAuthContext } from "../context/authContext";
 
 function Payment() {
+  const [isClicked, setIsClicked] = useState(false);
+
   const { handlePaymentSubmit, card } = useAuthContext();
 
-  const [isClicked, setIsClicked] = useState(false);
 
   const handleToggle = () => {
     setIsClicked(!isClicked);

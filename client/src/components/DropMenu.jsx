@@ -4,16 +4,17 @@ import { useAuthContext } from "../context/authContext";
 import { Link } from "react-router-dom";
 
 function DropMenu() {
+  const [isClicked, setIsClicked] = useState(false);
+  const handleToggle = () => {
+    setIsClicked(!isClicked);
+  };
   const {
     user,
     firstnameUppercase,
     lastnameUppercase,
     handeLogout,
   } = useAuthContext();
-  const [isClicked, setIsClicked] = useState(false);
-  const handleToggle = () => {
-    setIsClicked(!isClicked);
-  };
+  
 
   return (
     <div className="w-1/3 flex justify-center z-20">

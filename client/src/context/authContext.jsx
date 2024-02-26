@@ -44,7 +44,6 @@ const AuthProvider = ({ children }) => {
 
   //fetch card
 
-
   const fetchCard = async () => {
     try {
       if (user && user._id) {
@@ -60,7 +59,7 @@ const AuthProvider = ({ children }) => {
       console.error("Error fetching card:", error);
     }
   };
-  
+
   // registration user
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -119,7 +118,6 @@ const AuthProvider = ({ children }) => {
       );
       e.target.reset();
       setCard(newCard.newCard);
-      
     } catch (err) {
       console.log(err);
     }
@@ -185,15 +183,19 @@ const AuthProvider = ({ children }) => {
   const handleFavourites = async (restaurantId, userId) => {
     const body = {
       userId,
+      restaurantId,
     };
-
+    console.log(restaurantId, userId);
     try {
       const response = await axios.put(
         baseURL + `/users/favourite/${restaurantId}`,
         body
       );
-
       setUser(response.data.user);
+      localStorage.setItem(
+        "favourites",
+        JSON.stringify(response.data.user.favourites)
+      );
       console.log("===> add fav", response.data);
     } catch (err) {
       console.log(err);
@@ -215,7 +217,7 @@ const AuthProvider = ({ children }) => {
         handleUpdateAddress,
         card,
         handleFavourites,
-        fetchCard
+        fetchCard,
       }}
     >
       {children}
