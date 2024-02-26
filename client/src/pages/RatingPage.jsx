@@ -68,6 +68,7 @@ const RatingPage = () => {
                 rows="3"
                 className="p-4 text-gray-500 rounded-xl resize-none w-full"
                 onChange={handleCommentChange}
+                
                 value={comment}
                 placeholder="Your feedback..."
               ></textarea>
