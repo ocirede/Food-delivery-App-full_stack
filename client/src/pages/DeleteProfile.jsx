@@ -80,3 +80,5 @@ const DeleteProfile = () => {
     </div>
   );
 };
+
+export default DeleteProfile;
