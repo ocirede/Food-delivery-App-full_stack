@@ -3,11 +3,17 @@ import Profile from "../components/Profile";
 import { useAuthContext } from "../context/authContext";
 import { FilePenLine, Send } from "lucide-react";
 import { baseURL } from "../config/api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function PersonalInfo() {
   const { user, firstnameUppercase, lastnameUppercase, handleUpdateImage } =
     useAuthContext();
+
+  const navigate = useNavigate();
+
+  const handleDeleteProfile = () => {
+    navigate("/deleteprofile");
+  };
 
   return (
     <div>
@@ -102,6 +108,15 @@ function PersonalInfo() {
               </ul>
             </div>
           )}
+        </div>
+        <div className="flex justify-center pt-8">
+          <button
+            onClick={handleDeleteProfile}
+            type="button"
+            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          >
+            Delete Profile
+          </button>
         </div>
       </div>
     </div>

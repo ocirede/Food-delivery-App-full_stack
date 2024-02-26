@@ -16,6 +16,7 @@ import RatingPage from "./pages/RatingPage";
 import AddedCard from "./pages/AddedCard";
 import DescriptionPage from "./pages/DescriptionPage";
 import Checkout from "./pages/Checkout";
+import DeleteProfile from "./pages/DeleteProfile";
 
 export default function App() {
   return (
@@ -34,7 +35,8 @@ export default function App() {
                 <Route path="/card" element={<AddedCard />} />
                 <Route path="/rating" element={<RatingPage />} />
                 <Route path="/description" element={<DescriptionPage />} />
-                <Route path="/checkout" element={<Checkout/>} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/deleteprofile" element={<DeleteProfile />} />
               </Route>
 
               <Route path="/signup" element={<SignUp />} />

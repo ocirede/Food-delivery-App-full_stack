@@ -202,6 +202,23 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  //delete user
+  const deleteUser = async (userId, password) => {
+    const userData = { userId, password };
+    try {
+      const response = await axios.delete(baseURL + `/users/delete/`, {
+        data: userData,
+      });
+      localStorage.removeItem("token");
+      navigate("/");
+      console.log("User deleted:", response.data.message);
+    } catch (error) {
+      console.log(error);
+
+      setErrors(error.response.data.error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -218,6 +235,7 @@ const AuthProvider = ({ children }) => {
         card,
         handleFavourites,
         fetchCard,
+        deleteUser,
       }}
     >
       {children}

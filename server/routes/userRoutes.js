@@ -41,6 +41,6 @@ userRoutes.put(
 userRoutes.put("/updateaddress/:userId", updateUserAddress);
 
 userRoutes.put("/favourite/:restaurantId", addToFavorites);
-userRoutes.delete("/delete/:userId", auth, deleteUser);
+userRoutes.delete("/delete", auth, deleteUser);
 
 export default userRoutes;
