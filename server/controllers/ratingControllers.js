@@ -45,7 +45,7 @@ export const handleAddNewRating = async (req, res) => {
     );
     const averageRating = (totalRating / ratings.length).toFixed(2);
 
-    // Update the averageRating field in the restaurant document
+    //Update the averageRating field in the restaurant document
     await Restaurant.findByIdAndUpdate(
       restaurantId,
       { averageRating },
