@@ -11,7 +11,7 @@ const MenuItemCard = ({ item }) => {
     console.log(itemId);
   };
 
-  const { itemCounts, handleIncrement, handleDecrement,  } =
+  const { itemCounts, handleIncrement, handleDecrement } =
     useContext(RestaurantContext);
 
   return (
@@ -21,10 +21,12 @@ const MenuItemCard = ({ item }) => {
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div className="h-full fixed z-20 overflow-y-auto flex justify-center items-center">
             <div
-              className="h-2/3 w-1/4 fixed ml-0"
+              className="h-1/3 w-2/4 fixed ml-0"
               style={{
                 backgroundImage:
-                  "url(https://www.textures4photoshop.com/tex/thumbs/fast-food-restaurant-background-with-chalkboard-texture-free-94.jpg)",
+                  "url(https://image.shutterstock.com/image-photo/italian-food-background-cuisine-ingredients-260nw-1499710865.jpg)",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
               }}
             >
               <XCircle
@@ -47,7 +49,7 @@ const MenuItemCard = ({ item }) => {
                     </div>
                     <button
                       onClick={() => toggleOpen(item._id)}
-                      className="bg-green-500 hover:bg-green-300 text-white font-bold py-2 px-4 rounded ml-4 w-1/3"
+                      className="bg-green-500 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-lg  ml-4 w-1/3"
                     >
                       Add to order
                     </button>
