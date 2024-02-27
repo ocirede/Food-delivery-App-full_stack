@@ -4,10 +4,8 @@ import { Minus, Plus, XCircle } from "lucide-react";
 
 const MenuItemCard = ({ item }) => {
   const [open, setOpen] = useState(false);
-
   const toggleOpen = (itemId) => {
     setOpen(!open);
-    console.log("clicked");
     console.log(itemId);
   };
 
@@ -41,9 +39,9 @@ const MenuItemCard = ({ item }) => {
                 </div>
 
                 <div className="h-full w-full  flex flex-col items-center justify-end ">
-                  <div className="w-full justify-center flex items-center mb-2">
+                  <div className="w-full justify-center flex items-center mb-4">
                     <div className=" h-full w-1/3 flex justify-center items-center rounded-lg cursor-pointer gap-4 bg-white opacity-80 ">
-                      <Plus onClick={() => handleIncrement(item._id)} />
+                      <Plus onClick={() => handleIncrement(item._id, item.price)} />
                       {itemCounts[item._id] || 0}
                       <Minus onClick={() => handleDecrement(item._id)} />
                     </div>
