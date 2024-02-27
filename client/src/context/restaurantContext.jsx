@@ -111,7 +111,7 @@ const RestaurantProvider = ({ children }) => {
       if (response.data.success) {
         //console.log("Orders==>>", response.data.orders);
         setRestaurant(response.data.restaurant);
-        navigate("/description");
+
         console.log(response.data);
       }
     } catch (error) {
@@ -208,7 +208,7 @@ const RestaurantProvider = ({ children }) => {
         handleIncrement,
         handleDecrement,
         setItemCounts,
-         setUserAddedOrders
+        setUserAddedOrders,
       }}
     >
       {children}

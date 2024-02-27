@@ -3,19 +3,21 @@ import DropMenu from "./DropMenu";
 import Home from "./Home";
 import { useAuthContext } from "../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Trash2 } from "lucide-react";
 import { RestaurantContext } from "../context/restaurantContext";
 
 function NavBar() {
   const navigate = useNavigate()
   const { user } = useAuthContext();
-  const { userAddedOrders, placeNewOrder } =
+  const { userAddedOrders, setUserAddedOrders } =
     useContext(RestaurantContext);
     console.log(userAddedOrders);
 
  const handleNavigate = () => {
   navigate("/checkout")
  }
+
+
   return (
     <>
       <nav className=" w-full h-28 flex items-center">
@@ -23,8 +25,9 @@ function NavBar() {
           <Home />
 
           {userAddedOrders.length > 0 ? (
-            <button onClick={handleNavigate} className="w-1/3 flex ">
-              <ul className="w-1/2 h-12 flex justify-center p-2 items-center gap-4 bg-cyan-500 rounded-lg">
+  <div className="w-1/6 h-12 flex justify-center items-center gap-4 bg-cyan-500 rounded-lg">
+  <button onClick={handleNavigate} >
+              <ul className=" flex justify-center items-center gap-4 ">
                 <li className=" flex items-center justify-center bg-white opacity-70 p-1 font-bold w-6 h-6 rounded-full">
                   {userAddedOrders.reduce((acc, item) => {
                     const total = (acc += item.quantity);
@@ -38,13 +41,15 @@ function NavBar() {
                       return (totalPrice)
                   }, 0).toFixed(2)}  €
                 </li>
-              </ul>
-              {/* <button
-                onClick={() =>
-                  placeNewOrder(user._id, restaurant._id, userAddedOrders)
-                }
-              ></button> */}
-            </button>
+                </ul>
+                </button>
+                <button>
+                <Trash2 onClick={() => setUserAddedOrders([])}/>
+                </button>
+             
+             
+                </div>
+
           ) : (
             <div className=" w-1/3 flex items-center gap-6">
               <h2 className=" text-xl">I am empty and I am hungry!!</h2>

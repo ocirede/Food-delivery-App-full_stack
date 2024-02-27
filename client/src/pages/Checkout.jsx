@@ -4,10 +4,19 @@ import { RestaurantContext } from "../context/restaurantContext";
 import { useAuthContext } from "../context/authContext";
 
 function Checkout() {
-  const { userAddedOrders} = useContext(RestaurantContext);
+  const { userAddedOrders, restaurant, placeNewOrder } =
+    useContext(RestaurantContext);
   const { user } = useAuthContext();
 
   console.log(userAddedOrders);
+
+  {
+    /* <button
+                onClick={() =>
+                  placeNewOrder(user._id, restaurant._id, userAddedOrders)
+                }
+              ></button> */
+  }
 
   // const totalPrice = placedOrders?.newOrder?.menu?.reduce((acc, item) => {
   //   acc += item.price;
@@ -15,7 +24,7 @@ function Checkout() {
   // }, 0);
 
   // const vat = (totalPrice * 10) / 100;
-  // const finalPrice = totalPrice + vat;
+  // constfinalPrice = totalPrice + vat;
   // const formattedTotalPrice = totalPrice.toFixed(2);
   // const formattedVat = vat.toFixed(2);
   // const formattedFinalPrice = finalPrice.toFixed(2);
@@ -42,8 +51,7 @@ function Checkout() {
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="email"
-                    required
+                    placeholder={user?.email}
                     className="mt-1 block w-full rounded border-gray-800 bg-gray-50 py-3 px-4 text-sm placeholder-gray-700 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
@@ -147,6 +155,9 @@ function Checkout() {
                   </a>
                 </p>
                 <button
+                  onClick={() =>
+                    placeNewOrder(user._id, restaurant._id, userAddedOrders)
+                  }
                   type="submit"
                   className="mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg"
                 >
@@ -163,31 +174,55 @@ function Checkout() {
             <div className="relative">
               <h2 className="text-3xl">Your order summary </h2>
 
-              { (
+              {
                 <>
                   <div className="my-5 h-0.5 w-full bg-white bg-opacity-30"></div>
                   <div className="space-y-2">
                     <p className="flex justify-between text-lg font-bold text-white">
                       <span>SubTotal price:</span>
-                      <span> {userAddedOrders.reduce((acc, item) => {
-                      const totalPrice = acc += (item.price * item.quantity)
-                      return (totalPrice)
-                  }, 0).toFixed(2)}€</span>
+                      <span>
+                        {" "}
+                        {userAddedOrders
+                          .reduce((acc, item) => {
+                            const totalPrice = (acc +=
+                              item.price * item.quantity);
+                            return totalPrice;
+                          }, 0)
+                          .toFixed(2)}
+                        €
+                      </span>
                     </p>
                     <p className="flex justify-between text-lg font-bold text-white">
-                      <span>Vat: 10% </span>
-                      <span>  €</span>
+                      <span>Delivery: 10% </span>
+                      <span>
+                        {(
+                          userAddedOrders.reduce((acc, item) => {
+                            const totalPrice = acc + item.price * item.quantity;
+                            return totalPrice;
+                          }, 0) * 0.1
+                        ).toFixed(2)}
+                        €
+                      </span>{" "}
                     </p>
                     <hr />
                     <p>
                       <span className="flex justify-between  text-lg font-bold text-white">
                         <span className="text-white">Total price:</span>
-                        <span className="text-white">  €</span>
+                        <span>
+                          {(
+                            userAddedOrders.reduce((acc, item) => {
+                              const totalPrice =
+                                acc + item.price * item.quantity;
+                              return totalPrice;
+                            }, 0) * 1.1
+                          ).toFixed(2)}
+                          €
+                        </span>{" "}
                       </span>
                     </p>
                   </div>
                 </>
-              )}
+              }
 
               <div className="text-lg font-bold flex flex-col gap-2 mr-5 ">
                 <h2 className="text-2xl">Sending address:</h2>
@@ -198,8 +233,8 @@ function Checkout() {
               </div>
               <hr className="my-5" />
               <p className="text-lg font-bold">
-                The order will be sent to this address. If you wish to change
-                it or update it please click{" "}
+                The order will be sent to this address. If you wish to change it
+                or update it please click{" "}
                 <Link className="text-white" to="/address">
                   here
                 </Link>

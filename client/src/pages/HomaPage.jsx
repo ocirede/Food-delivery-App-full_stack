@@ -4,11 +4,13 @@ import { RestaurantContext } from "../context/restaurantContext";
 import { useAuthContext } from "../context/authContext";
 import SubNav from "../components/SubNav";
 import ShowRatings from "../components/ShowRatings";
+import { useNavigate } from "react-router-dom";
 
 function HomaPage() {
   const { restaurants, findRestaurant, ratings, getRatingsForRestaurant } =
     useContext(RestaurantContext);
-  const {user } = useAuthContext();
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   const [showRatings, setShowRatings] = useState(false);
 
@@ -16,6 +18,10 @@ function HomaPage() {
     getRatingsForRestaurant(restaurantId);
     console.log("ratings==>", ratings);
     setShowRatings(true);
+  };
+
+  const handleFindRestaurant = (restaurantId) => {
+    navigate(`/description?restaurantId=${restaurantId}`);
   };
 
   return (
@@ -31,13 +37,11 @@ function HomaPage() {
                   <img src={restaurant?.image} alt="" />
                 </div>
                 <div className="flex justify-between">
-                  <button onClick={() => findRestaurant(restaurant._id)}>
+                  <button onClick={() => handleFindRestaurant(restaurant._id)}>
                     <h2 className="text-xl font-semibold mb-2 underline">
                       {restaurant.name}
                     </h2>
                   </button>
-
-             
                 </div>
 
                 <p className="text-gray-600">{restaurant.description}</p>
