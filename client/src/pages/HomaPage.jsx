@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 
 import { RestaurantContext } from "../context/restaurantContext";
-import { Heart } from "lucide-react";
 import { useAuthContext } from "../context/authContext";
 import SubNav from "../components/SubNav";
 import ShowRatings from "../components/ShowRatings";
@@ -9,7 +8,7 @@ import ShowRatings from "../components/ShowRatings";
 function HomaPage() {
   const { restaurants, findRestaurant, ratings, getRatingsForRestaurant } =
     useContext(RestaurantContext);
-  const { handleFavourites, user } = useAuthContext();
+  const {user } = useAuthContext();
 
   const [showRatings, setShowRatings] = useState(false);
 
@@ -38,9 +37,7 @@ function HomaPage() {
                     </h2>
                   </button>
 
-                  <button
-                    onClick={() => handleFavourites(restaurant._id, user._id)}
-                  ></button>
+             
                 </div>
 
                 <p className="text-gray-600">{restaurant.description}</p>

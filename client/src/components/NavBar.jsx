@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Search, LogOut } from "lucide-react";
 import DropMenu from "./DropMenu";
 import Home from "./Home";
 import { useAuthContext } from "../context/authContext";
@@ -19,11 +18,12 @@ function NavBar() {
           {userAddedOrders.length > 0 ? (
             <div className="w-1/3 flex gap-4">
               <ul className="w-1/3 h-12 flex p-2 items-center  bg-cyan-500">
-                View order:
+               
                 {userAddedOrders.reduce((acc, item) => {
-                  acc += item.quantity;
-                  return acc;
+                const total=  acc += item.quantity;
+                  return total;
                 }, 0)}{" "}
+                 View order
               </ul>
               {/* <button
                 onClick={() =>
