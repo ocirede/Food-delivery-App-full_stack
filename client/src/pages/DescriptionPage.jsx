@@ -6,7 +6,7 @@ import MenuItemCard from "../components/MenuItemCard";
 import { useLocation } from "react-router-dom";
 
 function DescriptionPage() {
-  const { restaurant, findRestaurant } = useContext(RestaurantContext);
+  const { restaurant, findRestaurant, userAddedOrders, setUserAddedOrders } = useContext(RestaurantContext);
   const { user, handleFavourites } = useAuthContext();
   const [isFavorite, setIsFavorite] = useState();
 
@@ -16,7 +16,7 @@ function DescriptionPage() {
 
   useEffect(() => {
     findRestaurant(restaurantId);
-  }, [restaurantId]);
+     }, [restaurantId]);
 
   useEffect(() => {
     setIsFavorite(
@@ -26,12 +26,20 @@ function DescriptionPage() {
     console.log("user==>>", user);
   }, [user]);
 
+  useEffect(() => {
+    const storedShoppingCart = localStorage.getItem("ShoppingCart");
+    if (storedShoppingCart) {
+      const parsedShoppingCart = JSON.parse(storedShoppingCart);
+      setUserAddedOrders(parsedShoppingCart);
+    }
+  }, []);
+
   return (
     <div className=" flex flex-col justify-center  ml-5  mt-6">
       <h2 className=" text-6xl font-bold">{restaurant?.name}</h2>
       <div className=" flex gap-5 text-lg font-bold mt-5 ">
         <p> {restaurant?.category} cuisine</p>
-        <div className=" flex justify-center items-center ">
+        <div className=" flex justify-center items-center  gap-4">
           <svg
             className={`w-7 h-7 text-yellow-500   `}
             xmlns="http://www.w3.org/2000/svg"

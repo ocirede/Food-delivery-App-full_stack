@@ -7,10 +7,9 @@ import ShowRatings from "../components/ShowRatings";
 import { useNavigate } from "react-router-dom";
 
 function HomaPage() {
-  const { restaurants, findRestaurant, ratings, getRatingsForRestaurant } =
+  const { restaurants, ratings, getRatingsForRestaurant } =
     useContext(RestaurantContext);
-  const { user } = useAuthContext();
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
   const [showRatings, setShowRatings] = useState(false);
 

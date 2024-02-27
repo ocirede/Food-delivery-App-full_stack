@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { RestaurantContext } from "../context/restaurantContext";
 import { useAuthContext } from "../context/authContext";
@@ -6,28 +6,11 @@ import { useAuthContext } from "../context/authContext";
 function Checkout() {
   const { userAddedOrders, restaurant, placeNewOrder } =
     useContext(RestaurantContext);
-  const { user } = useAuthContext();
-
-  console.log(userAddedOrders);
-
-  {
-    /* <button
-                onClick={() =>
-                  placeNewOrder(user._id, restaurant._id, userAddedOrders)
-                }
-              ></button> */
-  }
-
-  // const totalPrice = placedOrders?.newOrder?.menu?.reduce((acc, item) => {
-  //   acc += item.price;
-  //   return acc;
-  // }, 0);
-
-  // const vat = (totalPrice * 10) / 100;
-  // constfinalPrice = totalPrice + vat;
-  // const formattedTotalPrice = totalPrice.toFixed(2);
-  // const formattedVat = vat.toFixed(2);
-  // const formattedFinalPrice = finalPrice.toFixed(2);
+  const { user, card, fetchCard } = useAuthContext();
+  console.log(card)
+  useEffect(() => {
+    fetchCard();
+  }, []);
 
   return (
     <>
@@ -66,9 +49,11 @@ function Checkout() {
                     type="text"
                     id="card-number"
                     name="card-number"
-                    placeholder="1234-5678-XXXX-XXXX"
+                    placeholder={
+                      card.length > 0 ? card[0].card.number : "Card Number"
+                    }
                     required
-                    className="block w-full rounded border-gray-800 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
+                    className="block w-full rounded border-gray-800 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-600 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                   />
                   <img
                     src="/images/uQUFIfCYVYcLK0qVJF5Yw.png"
@@ -125,9 +110,10 @@ function Checkout() {
                         type="text"
                         id="security-code"
                         name="security-code"
-                        placeholder="Security code"
-                        required
-                        className="block w-36 rounded border-gray-800 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
+                        placeholder={
+                          card.length > 0 ? card[0].card.cvv : "cvv"
+                        }                        required
+                        className="block w-36 rounded border-gray-800 bg-gray-50 py-3 px-4 text-sm placeholder-gray-600 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                       />
                     </div>
                   </div>
@@ -140,9 +126,10 @@ function Checkout() {
                     type="text"
                     id="card-name"
                     name="card-name"
-                    placeholder="Name on the card"
-                    required
-                    className="mt-1 block w-full rounded border-gray-800 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
+                    placeholder={
+                      card.length > 0 ? card[0].card.cardholder : "Card Holder"
+                    }                    required
+                    className="mt-1 block w-full rounded border-gray-800 bg-gray-50 py-3 px-4 text-sm placeholder-gray-600 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
                 <p className="mt-10 text-center text-sm font-semibold text-gray-500">
@@ -156,9 +143,9 @@ function Checkout() {
                 </p>
                 <button
                   onClick={() =>
-                    placeNewOrder(user._id, restaurant._id, userAddedOrders)
+                    placeNewOrder(user?._id, restaurant?._id, userAddedOrders)
                   }
-                  type="submit"
+                  type="button"
                   className="mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg"
                 >
                   Place Order
@@ -224,9 +211,9 @@ function Checkout() {
                 </>
               }
 
-              <div className="text-lg font-bold flex flex-col gap-2 mr-5 ">
+              <div className="text-lg font-bold flex flex-col gap-2 mr-5 mt-20 ">
                 <h2 className="text-2xl">Sending address:</h2>
-                <span>Street: {user?.address?.street}</span>
+                <span>Street: {user?.address?.street} </span>
                 <span>City: {user?.address?.city}</span>
                 <span>Postal Code: {user?.address?.postalCode}</span>
                 <span>Country: {user?.address?.country}</span>

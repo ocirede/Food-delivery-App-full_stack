@@ -44,6 +44,7 @@ function DropMenu() {
                 aria-labelledby="options-menu"
               >
                 <Link
+                  onClick={() => handleToggle()}
                   to="profile"
                   className="flex gap-1 px-4 py-2 text-gray-800 hover:bg-gray-100"
                   role="menuitem"

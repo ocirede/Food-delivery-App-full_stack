@@ -4,7 +4,7 @@ import { useAuthContext } from '../context/authContext';
 function Address() {
   const {handleUpdateAddress}= useAuthContext()
     return (
-        <div className=' w-1/2'>
+        <div className=' w-1/2 h-screen'>
           <h2 className="text-2xl font-semibold mb-4">Update Address</h2>
           <form onSubmit={handleUpdateAddress}  className="space-y-4">
             <div>

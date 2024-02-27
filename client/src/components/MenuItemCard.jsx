@@ -3,11 +3,13 @@ import { RestaurantContext } from "../context/restaurantContext";
 import { Minus, Plus, XCircle } from "lucide-react";
 
 const MenuItemCard = ({ item }) => {
+  const {setItemCounts} = useContext(RestaurantContext)
   const [open, setOpen] = useState(false);
   const toggleOpen = (itemId) => {
     setOpen(!open);
-    console.log(itemId);
-  };
+    setItemCounts(0) 
+
+  console.log(itemId) };
 
   const { itemCounts, handleIncrement, handleDecrement } =
     useContext(RestaurantContext);
@@ -32,7 +34,7 @@ const MenuItemCard = ({ item }) => {
                 className=" text-white absolute w-10 h-10  ml-2 mt-2 cursor-pointer"
               />
               <div className=" h-full w-full flex flex-col justify-center items-center">
-                <div className=" w-full h-full flex flex-col justify-center gap-8 mt-28 ml-12 text-white font-bold">
+                <div className=" w-full h-full flex flex-col justify-center gap-8 mt-20 ml-12 text-white font-bold">
                   <span className="font-bold text-2xl ">{item.name}</span>{" "}
                   <span>{item.price} €</span>
                   <p className="">{item.description}</p>

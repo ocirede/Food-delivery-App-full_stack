@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
           `${baseURL}/cards/getcard/${user._id}`
         );
         console.log("card data", response.data);
-        setCard(response.data.cards);
+        setCard(response.data.card);
       } else {
         console.log("User or user._id is undefined");
       }
