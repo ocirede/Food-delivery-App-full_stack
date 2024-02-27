@@ -20,7 +20,12 @@ const port = process.env.PORT;
 
 app.use(express.json());
 
-app.use(cors());
+const corsOptions = {
+  origin: "https://berlinvery-food-delivery-app.vercel.app/",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 connectDB();
 
