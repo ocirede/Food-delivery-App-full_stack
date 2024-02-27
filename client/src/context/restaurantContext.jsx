@@ -17,10 +17,9 @@ const RestaurantProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  // fetching: all restaurants, rating for a restaurant,
+  // fetching: all restaurants
   useEffect(() => {
     fetchRestaurants();
-    //getRatingsForRestaurant(restaurants?._id);
   }, []);
 
   //fetch the restaurants by category
@@ -44,7 +43,6 @@ const RestaurantProvider = ({ children }) => {
 
   const handleRestaurantsCategory = (category) => {
     fetchRestaurants(category);
-    console.log("clicked")
   };
 
   //function to reset filter by category
@@ -142,7 +140,7 @@ const RestaurantProvider = ({ children }) => {
   };
 
   // Increment order quantity
-  const handleIncrement = (itemId) => {
+  const handleIncrement = (itemId, itemPrice) => {
     setItemCounts((prevCounts) => ({
       ...prevCounts,
       [itemId]: (prevCounts[itemId] || 0) + 1,
@@ -155,11 +153,11 @@ const RestaurantProvider = ({ children }) => {
       if (existingOrderItem) {
         return previousOrders.map((item) =>
           item.itemId === itemId
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item,  quantity: item.quantity + 1 }
             : item
         );
       } else {
-        return [...previousOrders, { itemId, quantity: 1 }];
+        return [...previousOrders, { itemId, price: itemPrice, quantity: 1 }];
       }
     });
   };

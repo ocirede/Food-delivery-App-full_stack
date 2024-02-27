@@ -4,21 +4,21 @@ import { RestaurantContext } from "../context/restaurantContext";
 import { useAuthContext } from "../context/authContext";
 
 function Checkout() {
-  const { placedOrders, card } = useContext(RestaurantContext);
+  const { userAddedOrders} = useContext(RestaurantContext);
   const { user } = useAuthContext();
 
-  console.log(placedOrders);
+  console.log(userAddedOrders);
 
-  const totalPrice = placedOrders?.newOrder?.menu?.reduce((acc, item) => {
-    acc += item.price;
-    return acc;
-  }, 0);
+  // const totalPrice = placedOrders?.newOrder?.menu?.reduce((acc, item) => {
+  //   acc += item.price;
+  //   return acc;
+  // }, 0);
 
-  const vat = (totalPrice * 10) / 100;
-  const finalPrice = totalPrice + vat;
-  const formattedTotalPrice = totalPrice.toFixed(2);
-  const formattedVat = vat.toFixed(2);
-  const formattedFinalPrice = finalPrice.toFixed(2);
+  // const vat = (totalPrice * 10) / 100;
+  // const finalPrice = totalPrice + vat;
+  // const formattedTotalPrice = totalPrice.toFixed(2);
+  // const formattedVat = vat.toFixed(2);
+  // const formattedFinalPrice = finalPrice.toFixed(2);
 
   return (
     <>
@@ -163,23 +163,26 @@ function Checkout() {
             <div className="relative">
               <h2 className="text-3xl">Your order summary </h2>
 
-              {formattedTotalPrice > 0 &&  formattedVat > 0 &&  formattedFinalPrice > 0 &&(
+              { (
                 <>
                   <div className="my-5 h-0.5 w-full bg-white bg-opacity-30"></div>
                   <div className="space-y-2">
                     <p className="flex justify-between text-lg font-bold text-white">
                       <span>SubTotal price:</span>
-                      <span>{formattedTotalPrice} €</span>
+                      <span> {userAddedOrders.reduce((acc, item) => {
+                      const totalPrice = acc += (item.price * item.quantity)
+                      return (totalPrice)
+                  }, 0).toFixed(2)}€</span>
                     </p>
                     <p className="flex justify-between text-lg font-bold text-white">
                       <span>Vat: 10% </span>
-                      <span> {formattedVat} €</span>
+                      <span>  €</span>
                     </p>
                     <hr />
                     <p>
                       <span className="flex justify-between  text-lg font-bold text-white">
                         <span className="text-white">Total price:</span>
-                        <span className="text-white"> {formattedFinalPrice} €</span>
+                        <span className="text-white">  €</span>
                       </span>
                     </p>
                   </div>
