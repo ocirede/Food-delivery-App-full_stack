@@ -233,7 +233,7 @@ export const addToFavorites = async (req, res) => {
       // If the restaurant is not in favorites, we add it
       user.favourites.push(restaurantId);
     }
-
+    await user.populate("favourites");
     await user.save();
 
     res.send({
