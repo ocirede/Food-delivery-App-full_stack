@@ -1,13 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RestaurantContext } from "../context/restaurantContext";
 import { Heart } from "lucide-react";
 import { useAuthContext } from "../context/authContext";
 import MenuItemCard from "../components/MenuItemCard";
+import { useLocation } from "react-router-dom";
 
 function DescriptionPage() {
-  const { restaurant,  } = useContext(RestaurantContext);
+  const { restaurant, findRestaurant } = useContext(RestaurantContext);
   const { user, handleFavourites } = useAuthContext();
-  console.log(restaurant);
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const restaurantId = queryParams.get("restaurantId");
+
+  useEffect(() => {
+    findRestaurant(restaurantId);
+  }, []);
+
   return (
     <div className=" flex flex-col justify-center  ml-5  mt-6">
       <h2 className=" text-6xl font-bold">{restaurant?.name}</h2>
