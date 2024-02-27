@@ -43,9 +43,9 @@ export const handleAddNewRating = async (req, res) => {
       (acc, curr) => acc + curr.ratingNumber,
       0
     );
-    const averageRating = totalRating / ratings.length;
+    const averageRating = (totalRating / ratings.length).toFixed(2);
 
-    // Update the averageRating field in the restaurant document
+    //Update the averageRating field in the restaurant document
     await Restaurant.findByIdAndUpdate(
       restaurantId,
       { averageRating },
@@ -59,7 +59,6 @@ export const handleAddNewRating = async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 };
-
 
 //get ratings for the restaurant
 export const getRatingsForRestaurant = async (req, res) => {
