@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 function DescriptionPage() {
   const { restaurant, findRestaurant } = useContext(RestaurantContext);
   const { user, handleFavourites } = useAuthContext();
+  const [isFavorite, setIsFavorite] = useState();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -15,7 +16,14 @@ function DescriptionPage() {
 
   useEffect(() => {
     findRestaurant(restaurantId);
-  }, []);
+  }, [restaurantId]);
+
+  useEffect(() => {
+    setIsFavorite(
+      user?.favourites.map((item) => item._id).includes(restaurantId) ||
+        user?.favourites.includes(restaurantId)
+    );
+  }, [user]);
 
   return (
     <div className=" flex flex-col justify-center  ml-5  mt-6">
@@ -37,11 +45,7 @@ function DescriptionPage() {
             <p>Not review yet!!</p>
           )}
           <button onClick={() => handleFavourites(restaurant?._id, user._id)}>
-            {user?.favourites?.includes(restaurant?._id) ? (
-              <Heart style={{ fill: "red" }} />
-            ) : (
-              <Heart />
-            )}
+            {isFavorite ? <Heart style={{ fill: "red" }} /> : <Heart />}
           </button>
         </div>
       </div>
